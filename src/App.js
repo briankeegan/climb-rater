@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom'
 import './App.css';
 
 const noDuplicates = (noDups, item) => {
@@ -66,6 +67,12 @@ const Sections = ({sections}) => (
   </div>
 )
 
+const Dashboard = () => (
+  <div>
+    <h1>Testing routing</h1>
+  </div>
+)
+
 class App extends Component {
   constructor(props) {
     super()
@@ -95,9 +102,16 @@ class App extends Component {
     })
   }
   render() {
+
     const { sections } = this.state;
     return (
       <div className="container">
+      <nav>
+         <Link to="/dashboard">Dashboard</Link>
+       </nav>
+       <div>
+         <Route path="/dashboard" component={Dashboard}/>
+       </div>
         {sections &&
           <div>
             <Sections sections={sections}/>
