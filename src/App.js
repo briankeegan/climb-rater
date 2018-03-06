@@ -1,6 +1,70 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+const noDuplicates = (noDups, item) => {
+    if (item === (null || undefined)) return noDups
+  if(noDups.indexOf(item) === -1)
+    noDups.push(item)
+    return noDups
+}
+
+const GetStats = ({walls}) => {
+    const stats = {
+      gymGrades: [],
+      routeSetters: [],
+      routeTypes: [],
+      wallNumbers: []
+    }
+    walls.forEach(wall => {
+      noDuplicates(stats.wallNumbers, wall.number)
+      // noDuplicates(stats.wallNumbers, wall)
+      wall.climbingRoutes &&
+      wall.climbingRoutes.forEach(cr => {
+        noDuplicates(stats.gymGrades, cr.gymGrade)
+        noDuplicates(stats.routeSetters, cr.routeSetter)
+        noDuplicates(stats.routeTypes, cr.routeType)
+      })
+    })
+  return (
+    <div className="row">
+      <div className="col s6">
+      <p>Walls: {stats.wallNumbers.join(', ')}</p>
+        <p>{stats.routeTypes.join(', ')}</p>
+      </div>
+      <div className="col s6">
+        <p>Grades: {stats.gymGrades.join(', ')}</p>
+        <p>Setters: {stats.routeSetters.join(', ')}</p>
+      </div>
+    </div>
+  )
+}
+
+const Section = ({name, url, walls}) => (
+    <div className="col s12 m8 offset-m2 l6 offset-l3 climbingSection">
+      <div className="card-panel grey lighten-5 z-depth-1">
+        <div className="row valign-wrapper">
+          <div className="col s4">
+            <img src={url} alt={name} className="circle responsive-img" />
+          </div>
+          <div className="col s8 center">
+            <h3>{name}</h3>
+                <GetStats walls={walls} />
+          </div>
+        </div>
+      </div>
+    </div>
+)
+
+const Sections = ({sections}) => (
+  <div>
+    {sections
+      .map(section => <Section key={section.name}
+                              name={section.name}
+                              url={section.imageURL}
+                              walls={section.walls}
+                              />)}
+  </div>
+)
 
 class App extends Component {
   constructor(props) {
@@ -20,7 +84,6 @@ class App extends Component {
         this.setState({
           sections: myJson.sections
         })
-        console.log(this.state)
       })
   }
   componentDidMount() {
@@ -34,15 +97,10 @@ class App extends Component {
   render() {
     const { sections } = this.state;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
+      <div className="container">
         {sections &&
           <div>
-            <img src={sections[0].imageURL} alt={sections[0].name} />
-            <h1>{sections[0].name}</h1>
+            <Sections sections={sections}/>
           </div>
         }
       </div>
