@@ -14,7 +14,7 @@ const noDuplicates = (noDups, item) => {
     return noDups
 }
 
-const GetStats = ({walls}) => {
+const GetWallStats = ({walls}) => {
     const stats = {
       gymGrades: [],
       routeSetters: [],
@@ -54,7 +54,7 @@ const Section = ({name, url, walls}) => (
           </div>
           <div className="col s8 center">
             <h3>{name}</h3>
-                <GetStats walls={walls} />
+                <GetWallStats walls={walls} />
           </div>
         </div>
       </div>
@@ -121,10 +121,6 @@ const WallRoute = ({ climbingRoute }) => {
   </div>
 )}
 
-// <Route path={`/${match.params.name}:name`} render={( {match} ) => {
-//    return (<div>asdf</div>)
-// }} />
-
 const Wall = ({ wall, name }) => {
     const { number, imageURL, climbingRoutes } = wall
     return (
@@ -170,6 +166,74 @@ const Walls = ({section}) => {
       })
     }
   </div>
+  )
+}
+
+const GetClimberGrades = ({ ratings }) => {
+  const reducedRatings = ratings.reduce((tot, ratings) => {
+    tot[ratings.climberGrade] = tot[ratings.climberGrade] ? ++tot[ratings.climberGrade] : 1
+    return tot
+  }, {})
+  return (
+    Object.keys(reducedRatings).map((cg, i) => {
+      return (
+        <div className="center" key="i">
+          <p>{cg}<span className="new badge blue" data-badge-caption="votes">{reducedRatings[cg]}</span></p>
+        </div>
+      )
+    })
+  )
+}
+
+const ClimbingRoute = ({ climbingRoute, wall }) => {
+  const { color, gymGrade, ratings, routeSetter, routeType, createdAt } = climbingRoute
+  const { number, imageURL } = wall
+  return (
+    <div className="col s12 m8 offset-m2 l6 offset-l3">
+      <div className="card-panel grey lighten-5 z-depth-1">
+        <div className="row valign-wrapper">
+          <div className="col s12 image-container">
+            <h1 className="image-title2">{color.toUpperCase()}: #{number}</h1>
+            <img src={imageURL} alt={`Route #${number}`} className="square responsive-img" />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col s6">
+            <a href="#">Rate this climb!</a>
+            <p>Gym Grade: {gymGrade}</p>
+            <p>{routeType}</p>
+            <p>Setter: {routeSetter}</p>
+            {(ratings.length !== 0)
+              ?
+              (
+                <div>
+                  <p>Climbers graded this route as a:</p>
+                  <GetClimberGrades ratings={ratings}/>
+                </div>
+              )
+              :
+              (
+                <span></span>
+              )
+            }
+          </div>
+          <div className="col s6">
+          {(ratings.length !== 0)
+            ?
+            (
+              <div>
+                <h5>Rating: <Ratings ratings={ratings} /></h5>
+              </div>
+            )
+            :
+            (
+              <h5>Be the first to <a></a> this rate this climb!</h5>
+            )
+          }
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -236,13 +300,12 @@ class App extends Component {
              const wall = section.walls.find(w => {
                return +w.number === +match.params.number
              })
-             const route = wall.climbingRoutes.find(cr => {
+             const climbingRoute = wall.climbingRoutes.find(cr => {
                return (cr.color.toLowerCase() === match.params.color.toLowerCase())
              })
-             console.log(wall)
-             return route ?
+             return climbingRoute ?
              (
-               <h1>Huzzah!</h1>
+               <ClimbingRoute climbingRoute={climbingRoute} wall={wall} />
              )
              :
              (
@@ -258,7 +321,5 @@ class App extends Component {
     );
   }
 }
-
-// const colorNumber = climbingRoute.color.toLowerCase() + number
 
 export default App;
