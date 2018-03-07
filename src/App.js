@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom'
-import './App.css';
+import './App.css'
+import DivLink from './DivLink';
 
 const noDuplicates = (noDups, item) => {
     if (item === (null || undefined)) return noDups
@@ -58,18 +59,95 @@ const Section = ({name, url, walls}) => (
 
 const Sections = ({sections}) => (
   <div>
-    {sections
-      .map(section => <Section key={section.name}
-                              name={section.name}
-                              url={section.imageURL}
-                              walls={section.walls}
-                              />)}
+    { sections &&
+      sections
+      .map(section => {
+        const linkName = section.name.split(' ').join('').toLowerCase()
+        return (
+        <DivLink to={linkName} key={linkName}>
+          <Section key={section.name}
+          name={section.name}
+          url={section.imageURL}
+          walls={section.walls}
+          />
+        </DivLink>
+        )
+        })
+      }
   </div>
 )
 
-const Dashboard = () => (
+const Wall = ({ number, imageURL, climbingRoutes }) => {
+
+    return (
+      <div className="col s12 m8 offset-m2 l6 offset-l3">
+        <div className="card-panel grey lighten-5 z-depth-1">
+          <div className="row valign-wrapper">
+            <div className="col s4 image-container">
+              <h1 className="image-title">#208</h1>
+              <img src="https://images.pexels.com/photos/209209/pexels-photo-209209.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" alt="" className="square responsive-img" />
+            </div>
+            <div className="col s8">
+
+            <div className="col s12">
+              <div className="card-panel grey lighten-5 z-depth-1">
+                <div className="row valign-wrapper">
+                  <div className="col s6">
+                    <p>PURPLE: 5.10b</p>
+                    <p>Top Rope, Auto Belay</p>
+                    <p>Setter: JAKE</p>
+                  </div>
+                  <div className="col s6 right">
+                    <span>asfd</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="col s12">
+              <div className="card-panel grey lighten-5 z-depth-1">
+                <div className="row valign-wrapper">
+                    <span className="black-text">
+                      This is a square image. Add the "circle" className to it to make it appear circular.
+                    </span>
+                </div>
+              </div>
+            </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+}
+
+const Walls = ({section}) => {
+  const { name, walls } = section
+  return (
   <div>
-    <h1>Testing routing</h1>
+    {name && <h1 className="center">{name}</h1>}
+    {walls &&
+      walls
+      .map(wall => {
+        const { number, imageURL, climbingRoutes, _id } = wall
+        return (
+          <Wall key={_id}/>
+        )
+      })
+    }
+  </div>
+  )
+}
+
+const CreateRoutes = ({sections}) => (
+  <div>
+    {sections &&
+      sections.map(section => {
+        const linkName = section.name.split(' ').join('').toLowerCase()
+        return (<Route exact path={'/' + linkName} key={linkName} render={() => <Walls section={section}/>}/>)
+      })
+    }
   </div>
 )
 
@@ -86,13 +164,15 @@ class App extends Component {
   getSection() {
     return fetch(`http://localhost:4741/`)
       .then(res => res.json())
-      .catch(error => console.error('Error:', error))
       .then(myJson =>  {
         this.setState({
           sections: myJson.sections
         })
       })
+      .catch(error => console.error('Error:', error))
+
   }
+
   componentDidMount() {
     this.getSection()
   }
@@ -101,22 +181,20 @@ class App extends Component {
       sections: null
     })
   }
+
   render() {
 
     const { sections } = this.state;
     return (
       <div className="container">
       <nav>
-         <Link to="/dashboard">Dashboard</Link>
+        <Link to="/">Home</Link>
        </nav>
        <div>
-         <Route path="/dashboard" component={Dashboard}/>
+         <Route exact path="/" render={() => <Sections sections={sections}/>}/>
+         <CreateRoutes sections={sections} />
+
        </div>
-        {sections &&
-          <div>
-            <Sections sections={sections}/>
-          </div>
-        }
       </div>
     );
   }
