@@ -30,3 +30,18 @@
 .climbingSection:hover {
   cursor: pointer;
 }
+
+.right {
+  text-align: right;
+}
+.image-container {
+  position: relative;
+}
+
+.image-title {
+  position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  color: white;
+}
