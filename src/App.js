@@ -77,42 +77,45 @@ const Sections = ({sections}) => (
   </div>
 )
 
-const Wall = ({ number, imageURL, climbingRoutes }) => {
+const WallRoute = ({ climbingRoute }) => {
+  const { color, gymGrade, routeSetter, routeType, createdAt } = climbingRoute
+  const date = new Date(createdAt).toDateString()
+  const colorLowerCase = color.toLowerCase()
+  return(
+    <div className="col s12 ">
+    <div className={"card-panel " + colorLowerCase + " lighten-4 z-depth-1"}>
+      <div className="row valign-wrapper">
+        <div className="col s6">
+          <p>{color.toUpperCase()}: {gymGrade}</p>
+          <p>{routeType}</p>
+          <p>Setter: {routeSetter}</p>
+        </div>
+        <div className="col s6 right">
+          <p>Rating: 5(hardcoded)</p>
+          <p>{date}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
 
+const Wall = ({ wall }) => {
+    const { number, imageURL, climbingRoutes } = wall
     return (
       <div className="col s12 m8 offset-m2 l6 offset-l3">
         <div className="card-panel grey lighten-5 z-depth-1">
           <div className="row valign-wrapper">
             <div className="col s4 image-container">
-              <h1 className="image-title">#208</h1>
-              <img src="https://images.pexels.com/photos/209209/pexels-photo-209209.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" alt="" className="square responsive-img" />
+              <h1 className="image-title">#{number}</h1>
+              <img src={imageURL} alt="" className="square responsive-img" />
             </div>
             <div className="col s8">
-
-            <div className="col s12">
-              <div className="card-panel grey lighten-5 z-depth-1">
-                <div className="row valign-wrapper">
-                  <div className="col s6">
-                    <p>PURPLE: 5.10b</p>
-                    <p>Top Rope, Auto Belay</p>
-                    <p>Setter: JAKE</p>
-                  </div>
-                  <div className="col s6 right">
-                    <span>asfd</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col s12">
-              <div className="card-panel grey lighten-5 z-depth-1">
-                <div className="row valign-wrapper">
-                    <span className="black-text">
-                      This is a square image. Add the "circle" className to it to make it appear circular.
-                    </span>
-                </div>
-              </div>
-            </div>
+            {climbingRoutes &&
+              climbingRoutes
+              .map((climbingRoute, i) => (
+                <WallRoute key={i} climbingRoute={climbingRoute}/>
+              ))
+            }
 
 
             </div>
@@ -130,9 +133,8 @@ const Walls = ({section}) => {
     {walls &&
       walls
       .map(wall => {
-        const { number, imageURL, climbingRoutes, _id } = wall
         return (
-          <Wall key={_id}/>
+          <Wall key={wall._id} wall={wall}/>
         )
       })
     }
