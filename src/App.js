@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom'
 import './App.css'
 import DivLink from './DivLink';
+import {Button, Icon} from 'react-materialize'
 
 const toUrl = (string) => (
   string.split(' ').join('').toLowerCase()
@@ -404,7 +405,9 @@ class App extends Component {
         <button className="btn" onClick={this.changePW}>Chagen PW</button>
         <button className="btn" onClick={this.logOut}>Log Out</button>
         <button className="btn" onClick={() => console.log(this.state.user)}>State</button>
-        
+        <Button waves='light'>
+    <Icon>thumb_up</Icon>
+  </Button>
        </div>
       </div>
     );
