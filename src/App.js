@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom'
 import './App.css'
 import DivLink from './DivLink';
-import {Button, Icon} from 'react-materialize'
+import {Button, Icon, Modal} from 'react-materialize'
 
 const toUrl = (string) => (
   string.split(' ').join('').toLowerCase()
@@ -408,6 +408,11 @@ class App extends Component {
         <Button waves='light'>
     <Icon>thumb_up</Icon>
   </Button>
+  <Modal
+  header='Modal Header'
+  trigger={<Button>MODAL</Button>}>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+</Modal>
        </div>
       </div>
     );
