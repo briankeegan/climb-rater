@@ -177,7 +177,7 @@ const GetClimberGrades = ({ ratings }) => {
   return (
     Object.keys(reducedRatings).map((cg, i) => {
       return (
-        <div className="center" key="i">
+        <div className="center" key={i}>
           <p>{cg}<span className="new badge blue" data-badge-caption="votes">{reducedRatings[cg]}</span></p>
         </div>
       )
@@ -188,6 +188,7 @@ const GetClimberGrades = ({ ratings }) => {
 const ClimbingRoute = ({ climbingRoute, wall }) => {
   const { color, gymGrade, ratings, routeSetter, routeType, createdAt } = climbingRoute
   const { number, imageURL } = wall
+  const date = new Date(createdAt).toDateString()
   return (
     <div className="col s12 m8 offset-m2 l6 offset-l3">
       <div className="card-panel grey lighten-5 z-depth-1">
@@ -199,7 +200,7 @@ const ClimbingRoute = ({ climbingRoute, wall }) => {
         </div>
         <div className="row">
           <div className="col s6">
-            <a href="#">Rate this climb!</a>
+            <button className="btn">Rate climb!</button>
             <p>Gym Grade: {gymGrade}</p>
             <p>{routeType}</p>
             <p>Setter: {routeSetter}</p>
@@ -227,9 +228,10 @@ const ClimbingRoute = ({ climbingRoute, wall }) => {
             )
             :
             (
-              <h5>Be the first to <a></a> this rate this climb!</h5>
+              <h5>Be the first to this rate this climb!</h5>
             )
           }
+            <p>{date}</p>
           </div>
         </div>
       </div>
@@ -241,10 +243,14 @@ class App extends Component {
   constructor(props) {
     super()
     this.state = {
-      sections: null
+      sections: null,
+      user: null
     }
     // allows getSection to always have access to the state
     this.getSection = this.getSection.bind(this)
+    this.logIn = this.logIn.bind(this)
+    this.changePW = this.changePW.bind(this)
+    this.logOut = this.logOut.bind(this)
   }
 
   getSection() {
@@ -256,7 +262,83 @@ class App extends Component {
         })
       })
       .catch(error => console.error('Error:', error))
+  }
 
+  logIn() {
+    return fetch(`http://localhost:4741/sign-in`, {
+      headers: new Headers({
+      'Content-Type': 'application/json'
+    }),
+       method: 'POST',
+       body: JSON.stringify({
+         "credentials": {
+           "email": "Carpenter2",
+           "password": "ls"
+         }
+       })
+    })
+      .then(res => res.json())
+      .then(myJson =>  {
+        this.setState({
+          user: myJson.user
+        })
+      })
+      .catch(error => console.error('Error:', error))
+  }
+
+  changePW() {
+    if (!this.state.user || !this.state.user.token) return
+    const user = this.state.user
+    return fetch(`http://localhost:4741/change-password/${user.id}`, {
+      headers: new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': `Token token=${user.token}`
+    }),
+       method: 'PATCH',
+       body: JSON.stringify({
+         "passwords": {
+           "old": "ls",
+           "new": "ls"
+         }
+       })
+    })
+      .then(res => res)
+      .catch(error => console.error('Error:', error))
+  }
+
+  logOut() {
+    if (!this.state.user || !this.state.user.token) return
+    const user = this.state.user
+    return fetch(`http://localhost:4741/sign-out/${user.id}`, {
+      headers: new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': `Token token=${user.token}`
+    }),
+       method: 'DELETE'
+    })
+      .then(() =>  {
+        this.setState({
+          user: null
+        })
+      })
+      .catch(error => console.error('Error:', error))
+  }
+
+  signUp() {
+    return fetch(`http://localhost:4741/sign-up`, {
+      headers: new Headers({
+      'Content-Type': 'application/json'
+    }),
+       method: 'POST',
+       body: JSON.stringify({
+         "credentials": {
+           "email": "Carpenter2",
+           "password": "ls"
+         }
+       })
+    })
+      .then(res => res.json())
+      .catch(error => console.error('Error:', error))
   }
 
   componentDidMount() {
@@ -264,7 +346,8 @@ class App extends Component {
   }
   componentWillUnmount() {
     this.setState({
-      sections: null
+      sections: null,
+      users: null
     })
   }
 
@@ -315,7 +398,13 @@ class App extends Component {
            </div>
         )
       }
-
+        <button className="btn" onClick={this.getSection}>Update Page States</button>
+        <button className="btn" onClick={this.logIn}>Log In</button>
+        <button className="btn" onClick={this.signUp}>Sign Up</button>
+        <button className="btn" onClick={this.changePW}>Chagen PW</button>
+        <button className="btn" onClick={this.logOut}>Log Out</button>
+        <button className="btn" onClick={() => console.log(this.state.user)}>State</button>
+        
        </div>
       </div>
     );
