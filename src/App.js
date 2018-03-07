@@ -3,6 +3,10 @@ import { Route, Link } from 'react-router-dom'
 import './App.css'
 import DivLink from './DivLink';
 
+const toUrl = (string) => (
+  string.split(' ').join('').toLowerCase()
+)
+
 const noDuplicates = (noDups, item) => {
     if (item === (null || undefined)) return noDups
   if(noDups.indexOf(item) === -1)
@@ -57,7 +61,9 @@ const Section = ({name, url, walls}) => (
     </div>
 )
 
-const Sections = ({sections}) => (
+const Sections = ({sections}) => {
+  console.log(sections)
+  return (
   <div>
     { sections &&
       sections
@@ -75,7 +81,7 @@ const Sections = ({sections}) => (
         })
       }
   </div>
-)
+)}
 
 
 const Ratings = ({ ratings }) => {
@@ -156,17 +162,6 @@ const Walls = ({section}) => {
   )
 }
 
-const CreateRoutes = ({sections}) => (
-  <div>
-    {sections &&
-      sections.map(section => {
-        const linkName = section.name.split(' ').join('').toLowerCase()
-        return (<Route exact path={'/' + linkName} key={linkName} render={() => <Walls section={section}/>}/>)
-      })
-    }
-  </div>
-)
-
 class App extends Component {
   constructor(props) {
     super()
@@ -208,12 +203,24 @@ class App extends Component {
        </nav>
        <div>
          <Route exact path="/" render={() => <Sections sections={sections}/>}/>
-         <CreateRoutes sections={sections} />
+         {/* <CreateRoutes sections={sections} /> */}
+         { sections && (
+           <Route path="/:name" render={( {match} ) => {
+             const section = sections.find(s => {
+               return toUrl(s.name) === toUrl(match.params.name)
+             })
+             return section ?
+              (<Walls section={section}/>)
+               :
+             (<h2 className="center red-text">Content not found</h2>)
+           }}/>
+        )}
 
        </div>
       </div>
     );
   }
 }
+
 
 export default App;
