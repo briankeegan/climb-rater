@@ -77,10 +77,22 @@ const Sections = ({sections}) => (
   </div>
 )
 
+
+const Ratings = ({ ratings }) => {
+  const calculatedRating = (ratings.reduce((tot, rating) => {
+    const r = +rating.climberRating
+    return tot += r
+  }, 0) / ratings.length).toFixed(1)
+  console.log(calculatedRating)
+  return (
+    <span>{calculatedRating}</span>
+ )
+}
+
 const WallRoute = ({ climbingRoute }) => {
-  const { color, gymGrade, routeSetter, routeType, createdAt } = climbingRoute
+  const { color, gymGrade, routeSetter, routeType, createdAt, ratings } = climbingRoute
   const date = new Date(createdAt).toDateString()
-  const colorLowerCase = color.toLowerCase()
+  const colorLowerCase = color ? color.toLowerCase() : 'grey'
   return(
     <div className="col s12 ">
     <div className={"card-panel " + colorLowerCase + " lighten-4 z-depth-1"}>
@@ -91,7 +103,11 @@ const WallRoute = ({ climbingRoute }) => {
           <p>Setter: {routeSetter}</p>
         </div>
         <div className="col s6 right">
-          <p>Rating: 5(hardcoded)</p>
+          {(ratings.length !== 0) &&
+            <div>
+              <p>Rating: <Ratings ratings={ratings} /></p>
+            </div>
+          }
           <p>{date}</p>
         </div>
       </div>
@@ -116,8 +132,6 @@ const Wall = ({ wall }) => {
                 <WallRoute key={i} climbingRoute={climbingRoute}/>
               ))
             }
-
-
             </div>
           </div>
         </div>
