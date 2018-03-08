@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom'
+import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
 import './App.css'
-import DivLink from './DivLink';
+import DivLink from './DivLink'
 import {Button, Icon, Modal} from 'react-materialize'
+import Nav from './Nav'
 
 const toUrl = (string) => (
   string.split(' ').join('').toLowerCase()
@@ -194,7 +195,7 @@ const ClimbingRoute = ({ climbingRoute, wall }) => {
     <div className="col s12 m8 offset-m2 l6 offset-l3">
       <div className="card-panel grey lighten-5 z-depth-1">
         <div className="row valign-wrapper">
-          <div className="col s12 image-container">
+          <div className="col s12 image-container center">
             <h1 className="image-title2">{color.toUpperCase()}: #{number}</h1>
             <img src={imageURL} alt={`Route #${number}`} className="square responsive-img" />
           </div>
@@ -273,18 +274,20 @@ class App extends Component {
        method: 'POST',
        body: JSON.stringify({
          "credentials": {
-           "email": "Carpenter2",
-           "password": "ls"
+           "email": user_name,
+           "password":  password
          }
        })
     })
-      .then(res => res.json())
-      .then(myJson =>  {
-        this.setState({
-          user: myJson.user
-        })
+    .then(res => res.json())
+    .then(myJson =>  {
+      if (myJson.error) return myJson.error
+      this.setState({
+        user: myJson.user
       })
-      .catch(error => console.error('Error:', error))
+      return this
+    })
+    .catch(error => console.error('Error:', error))
   }
 
   changePW() {
@@ -333,13 +336,11 @@ class App extends Component {
        method: 'POST',
        body: JSON.stringify({
          "credentials": {
-           "email": "Carpenter2",
-           "password": "ls"
+           "email": email,
+           "password": password
          }
        })
     })
-      .then(res => res.json())
-      .catch(error => console.error('Error:', error))
   }
 
   componentDidMount() {
@@ -356,10 +357,9 @@ class App extends Component {
 
     const { sections } = this.state;
     return (
+    <div>
+      <Nav signUp={this.signUp} logIn={this.logIn}/>
       <div className="container">
-      <nav>
-        <Link to="/">Home</Link>
-       </nav>
        <div>
          <Route exact path="/" render={() => <Sections sections={sections}/>}/>
          { sections && (
@@ -415,6 +415,7 @@ class App extends Component {
 </Modal>
        </div>
       </div>
+    </div>
     );
   }
 }
