@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import './App.css'
 import DivLink from './DivLink'
-import {Button, Icon, Modal} from 'react-materialize'
 import Nav from './Nav'
 
 const toUrl = (string) => (
@@ -250,9 +249,15 @@ class App extends Component {
     }
     // allows getSection to always have access to the state
     this.getSection = this.getSection.bind(this)
-    this.logIn = this.logIn.bind(this)
     this.changePW = this.changePW.bind(this)
     this.logOut = this.logOut.bind(this)
+    this.setUserState = this.setUserState.bind(this)
+  }
+
+  setUserState(data) {
+    this.setState({
+      user: data
+    })
   }
 
   getSection() {
@@ -264,30 +269,6 @@ class App extends Component {
         })
       })
       .catch(error => console.error('Error:', error))
-  }
-
-  logIn(user_name, password) {
-    return fetch(`http://localhost:4741/sign-in`, {
-      headers: new Headers({
-      'Content-Type': 'application/json'
-    }),
-       method: 'POST',
-       body: JSON.stringify({
-         "credentials": {
-           "email": user_name,
-           "password":  password
-         }
-       })
-    })
-    .then(res => res.json())
-    .then(myJson =>  {
-      if (myJson.error) return myJson
-      this.setState({
-        user: myJson.user
-      })
-      return this
-    })
-    .catch(error => error)
   }
 
   changePW() {
@@ -355,10 +336,14 @@ class App extends Component {
 
   render() {
 
-    const { sections } = this.state;
+    const { sections, user } = this.state;
     return (
     <div>
-      <Nav signUp={this.signUp} logIn={this.logIn}/>
+      <Nav
+        signUp={this.signUp}
+        user={user}
+        setUserState={this.setUserState}
+        />
       <div className="container">
        <div>
          <Route exact path="/" render={() => <Sections sections={sections}/>}/>
@@ -400,19 +385,10 @@ class App extends Component {
         )
       }
         <button className="btn" onClick={this.getSection}>Update Page States</button>
-        <button className="btn" onClick={this.logIn}>Log In</button>
         <button className="btn" onClick={this.signUp}>Sign Up</button>
         <button className="btn" onClick={this.changePW}>Chagen PW</button>
         <button className="btn" onClick={this.logOut}>Log Out</button>
         <button className="btn" onClick={() => console.log(this.state.user)}>State</button>
-        <Button waves='light'>
-    <Icon>thumb_up</Icon>
-  </Button>
-  <Modal
-  header='Modal Header'
-  trigger={<Button>MODAL</Button>}>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-</Modal>
        </div>
       </div>
     </div>
