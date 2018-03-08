@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import './App.css'
+import { Link } from 'react-router-dom'
 import DivLink from './DivLink'
 import Nav from './Nav'
 
@@ -249,7 +250,6 @@ class App extends Component {
     }
     // allows getSection to always have access to the state
     this.getSection = this.getSection.bind(this)
-    this.changePW = this.changePW.bind(this)
     this.setUserState = this.setUserState.bind(this)
   }
 
@@ -267,26 +267,6 @@ class App extends Component {
           sections: myJson.sections
         })
       })
-      .catch(error => console.error('Error:', error))
-  }
-
-  changePW() {
-    if (!this.state.user || !this.state.user.token) return
-    const user = this.state.user
-    return fetch(`http://localhost:4741/change-password/${user.id}`, {
-      headers: new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': `Token token=${user.token}`
-    }),
-       method: 'PATCH',
-       body: JSON.stringify({
-         "passwords": {
-           "old": "ls",
-           "new": "ls"
-         }
-       })
-    })
-      .then(res => res)
       .catch(error => console.error('Error:', error))
   }
 
@@ -324,7 +304,10 @@ class App extends Component {
               )
                :
              (
-                <h2 className="center red-text">Content not found</h2>
+               <div>
+                 <h2 className="center red-text">Content not found.</h2>
+                 <h4>Are you lost? Come <Link to="/">Home</Link></h4>
+               </div>
               )
            }}/>
            <Route path={`/:name/:number/:color`} render={({ match }) => {
@@ -343,14 +326,16 @@ class App extends Component {
              )
              :
              (
-               <h2 className="center red-text">Content not found</h2>
+               <div>
+                <h2 className="center red-text">Content not found.</h2>
+                <h4>Are you lost? Come <Link to="/">Home</Link></h4>
+              </div>
              )
            } }/>
            </div>
         )
       }
         <button className="btn" onClick={this.getSection}>Update Page States</button>
-        <button className="btn" onClick={this.changePW}>Chagen PW</button>
         <button className="btn" onClick={() => console.log(this.state)}>State</button>
        </div>
       </div>

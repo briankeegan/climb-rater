@@ -3,6 +3,7 @@ import './App.css'
 import { Link } from 'react-router-dom'
 import SignUpModal from './SignUpModal'
 import LogInModal from './LogInModal'
+import ChangePWModal from './ChangePWModal'
 import logOut from './LogOut'
 
 const  Nav = ( { user, setUserState } ) => {
@@ -17,7 +18,7 @@ const  Nav = ( { user, setUserState } ) => {
             ?
             (
               <div>
-                <li>{user.user.email}</li>
+                <li><ChangePWModal store={user}/></li>
                 <li><a onClick={() => logOut(user, setUserState)}>Log Out</a></li>
               </div>
             )
