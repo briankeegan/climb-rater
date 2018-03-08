@@ -266,7 +266,7 @@ class App extends Component {
       .catch(error => console.error('Error:', error))
   }
 
-  logIn() {
+  logIn(user_name, password) {
     return fetch(`https://climb-rater-api.herokuapp.com/sign-in`, {
       headers: new Headers({
       'Content-Type': 'application/json'
@@ -328,7 +328,7 @@ class App extends Component {
       .catch(error => console.error('Error:', error))
   }
 
-  signUp() {
+  signUp(email, password) {
     return fetch(`https://climb-rater-api.herokuapp.com/sign-up`, {
       headers: new Headers({
       'Content-Type': 'application/json'
