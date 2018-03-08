@@ -189,7 +189,7 @@ const GetClimberGrades = ({ ratings }) => {
 }
 
 const ClimbingRoute = ({ climbingRoute, wall, user }) => {
-  const { color, gymGrade, ratings, routeSetter, routeType, createdAt } = climbingRoute
+  const { color, gymGrade, ratings, routeSetter, routeType, createdAt, _id } = climbingRoute
   const { number, imageURL } = wall
   const date = new Date(createdAt).toDateString()
   return (
@@ -205,7 +205,7 @@ const ClimbingRoute = ({ climbingRoute, wall, user }) => {
           <div className="col s6">
             {user
               ?(
-                <RateClimbModal />
+                <RateClimbModal store={user} routeId={_id}/>
               )
               :
               (
