@@ -7,7 +7,8 @@ class SignUpModal extends Component {
   constructor(props) {
     super()
     this.state = {
-      errorMessage: ''
+      errorMessage: '',
+      successMessage: ''
     }
     this.onSubmit = this.onSubmit.bind(this)
     this.setErrorMessageState = setErrorMessageState.bind(this)
@@ -46,10 +47,19 @@ class SignUpModal extends Component {
         if (myJson.error) {
           return this.setErrorMessageState('Unable to fullfill you request.  User name possibly taken.')
         }
-        document.querySelectorAll('.modal-close').forEach(m =>
-          m.click()
-        )
-        document.querySelector('#sign_up_form').reset()
+        this.setState({
+          successMessage: "You've Signed up!!"
+        })
+        setTimeout(() => {
+          this.setState({
+            successMessage: ""
+          })
+          document.querySelectorAll('.modal-close').forEach(m =>
+            m.click()
+          )
+          document.querySelector('#sign_up_form').reset()
+        }
+        , 1000)
       })
       .catch(error =>   this.setErrorMessageState('Unable to fullfill you request.'))
 
@@ -83,6 +93,9 @@ class SignUpModal extends Component {
      </div>
       <div className="center">
         <h5 className="red-text">{this.state.errorMessage}</h5>
+      </div>
+      <div className="center">
+        <h5 className="green-text">{this.state.successMessage}</h5>
       </div>
       <Button waves='light'>
         Submit!
