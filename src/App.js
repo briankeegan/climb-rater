@@ -281,13 +281,13 @@ class App extends Component {
     })
     .then(res => res.json())
     .then(myJson =>  {
-      if (myJson.error) return myJson.error
+      if (myJson.error) return myJson
       this.setState({
         user: myJson.user
       })
       return this
     })
-    .catch(error => console.error('Error:', error))
+    .catch(error => error)
   }
 
   changePW() {
