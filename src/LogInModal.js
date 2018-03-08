@@ -33,7 +33,7 @@ class LogInModal extends Component {
     // checking for matching passwords
     logIn(user_name, password)
       .then(chain => {
-        if(chain.error) {
+        if(chain && chain.error) {
           this.setState({
             errorMessage: "Unable to fullfill you request.  Please try again!"
           })
@@ -81,7 +81,7 @@ class LogInModal extends Component {
           </Button>
           <div className="center">
             <h5 className="red-text">{this.state.errorMessage}</h5>
-          </div>  
+          </div>
        </form>
      </div>
 
