@@ -44,23 +44,14 @@ class SignUpModal extends Component {
       .then(res => res.json())
       .then(myJson => {
         if (myJson.error) {
-          this.setState({
-            errorMessage: "Unable to fullfill you request.  User name possibly taken."
-          })
-          setTimeout(() => {
-            this.setState({
-              errorMessage: ""
-            })
-          }
-          , 1500)
-          return
+          return this.setErrorMessageState('Unable to fullfill you request.  User name possibly taken.')
         }
         document.querySelectorAll('.modal-close').forEach(m =>
           m.click()
         )
         document.querySelector('#sign_up_form').reset()
       })
-      .catch(error => console.error('Error:', error))
+      .catch(error =>   this.setErrorMessageState('Unable to fullfill you request.'))
 
   }
 
@@ -90,12 +81,12 @@ class SignUpModal extends Component {
          <label htmlFor="sign_up_password_retype">Retype Password</label>
        </div>
      </div>
-     <Button waves='light'>
-       Submit!
-      </Button>
       <div className="center">
         <h5 className="red-text">{this.state.errorMessage}</h5>
       </div>
+      <Button waves='light'>
+        Submit!
+       </Button>
    </form>
  </div>
 

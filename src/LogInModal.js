@@ -74,12 +74,12 @@ class LogInModal extends Component {
            </div>
          </div>
 
-         <Button waves='light'>
-           Submit!
-          </Button>
           <div className="center">
             <h5 className="red-text">{this.state.errorMessage}</h5>
           </div>
+          <Button waves='light'>
+            Submit!
+           </Button>
        </form>
      </div>
 
