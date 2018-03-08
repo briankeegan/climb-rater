@@ -309,21 +309,6 @@ class App extends Component {
       .catch(error => console.error('Error:', error))
   }
 
-  signUp(email, password) {
-    return fetch(`http://localhost:4741/sign-up`, {
-      headers: new Headers({
-      'Content-Type': 'application/json'
-    }),
-       method: 'POST',
-       body: JSON.stringify({
-         "credentials": {
-           "email": email,
-           "password": password
-         }
-       })
-    })
-  }
-
   componentDidMount() {
     this.getSection()
   }
@@ -340,7 +325,6 @@ class App extends Component {
     return (
     <div>
       <Nav
-        signUp={this.signUp}
         user={user}
         setUserState={this.setUserState}
         />
@@ -385,7 +369,6 @@ class App extends Component {
         )
       }
         <button className="btn" onClick={this.getSection}>Update Page States</button>
-        <button className="btn" onClick={this.signUp}>Sign Up</button>
         <button className="btn" onClick={this.changePW}>Chagen PW</button>
         <button className="btn" onClick={this.logOut}>Log Out</button>
         <button className="btn" onClick={() => console.log(this.state.user)}>State</button>

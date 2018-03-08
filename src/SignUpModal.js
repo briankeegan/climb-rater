@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css'
 import {Modal, Button} from 'react-materialize'
+import setErrorMessageState from './SetErrorMessageState'
 
 class SignUpModal extends Component {
   constructor(props) {
@@ -9,41 +10,37 @@ class SignUpModal extends Component {
       errorMessage: ''
     }
     this.onSubmit = this.onSubmit.bind(this)
+    this.setErrorMessageState = setErrorMessageState.bind(this)
   }
 
-  onSubmit (e, signUp) {
+
+  onSubmit (e) {
     e.preventDefault()
     const user_name = document.getElementById('sign_up_user_name').value
     const password = document.getElementById('sign_up_password').value
     const password_retype = document.getElementById('sign_up_password_retype').value
 
   // Assuring that form is filled out!
-    if ([user_name, password, password_retype].some(cur => cur === "")) {
-      this.setState({
-        errorMessage: "No blank fields allowed."
-      })
-      setTimeout(() => {
-        this.setState({
-          errorMessage: ""
-        })
-      }
-      , 1500)
-      return
-    }
+  if ([user_name, password, password_retype].some(cur => cur === "")) {
+    return this.setErrorMessageState('No blank fields allowed.')
+  }
     // checking for matching passwords
     if (password !== password_retype) {
-      this.setState({
-        errorMessage: "Passwords Don't match!"
-      })
-      setTimeout(() => {
-        this.setState({
-          errorMessage: ""
-        })
-      }
-      , 1500)
-      return
+      return this.setErrorMessageState('Passwords don\'t match.')
     }
-    signUp(user_name, password)
+    // send http reqeust
+    fetch(`http://localhost:4741/sign-up`, {
+      headers: new Headers({
+      'Content-Type': 'application/json'
+    }),
+       method: 'POST',
+       body: JSON.stringify({
+         "credentials": {
+           "email": user_name,
+           "password": password
+         }
+       })
+    })
       .then(res => res.json())
       .then(myJson => {
         if (myJson.error) {
@@ -73,23 +70,23 @@ class SignUpModal extends Component {
     header='Sign Up'
     trigger={<a href="#portfolio">Sign Up</a>}>
     <div className="row">
-   <form id="sign_up_form" className="col s12" onSubmit={(e) => this.onSubmit(e, this.props.signUp)}>
+   <form id="sign_up_form" className="col s12" onSubmit={this.onSubmit}>
 
      <div className="row">
        <div className="input-field col m8 offset-m2">
-         <input id="sign_up_user_name" type="text" className="validate" require="true" />
+         <input id="sign_up_user_name" type="text" className="validate" required="true" />
          <label htmlFor="sign_up_user_name">User Name</label>
        </div>
      </div>
      <div className="row">
        <div className="input-field col m8 offset-m2">
-         <input id="sign_up_password" type="password" className="validate" require="true" />
+         <input id="sign_up_password" type="password" className="validate" required="true" />
          <label htmlFor="sign_up_password">Password</label>
        </div>
      </div>
      <div className="row">
        <div className="input-field col m8 offset-m2">
-         <input id="sign_up_password_retype" type="password" className="validate" require="true"/>
+         <input id="sign_up_password_retype" type="password" className="validate" required="true"/>
          <label htmlFor="sign_up_password_retype">Retype Password</label>
        </div>
      </div>
