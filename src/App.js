@@ -4,6 +4,7 @@ import './App.css'
 import { Link } from 'react-router-dom'
 import DivLink from './DivLink'
 import Nav from './Nav'
+import RateClimbModal from './RateClimbModal'
 
 const toUrl = (string) => (
   string.split(' ').join('').toLowerCase()
@@ -187,7 +188,7 @@ const GetClimberGrades = ({ ratings }) => {
   )
 }
 
-const ClimbingRoute = ({ climbingRoute, wall }) => {
+const ClimbingRoute = ({ climbingRoute, wall, user }) => {
   const { color, gymGrade, ratings, routeSetter, routeType, createdAt } = climbingRoute
   const { number, imageURL } = wall
   const date = new Date(createdAt).toDateString()
@@ -202,7 +203,15 @@ const ClimbingRoute = ({ climbingRoute, wall }) => {
         </div>
         <div className="row">
           <div className="col s6">
-            <button className="btn">Rate climb!</button>
+            {user
+              ?(
+                <RateClimbModal />
+              )
+              :
+              (
+                <p className="purple-text">Sign In Above to rate route!</p>
+              )
+            }
             <p>Gym Grade: {gymGrade}</p>
             <p>{routeType}</p>
             <p>Setter: {routeSetter}</p>
@@ -322,7 +331,10 @@ class App extends Component {
              })
              return climbingRoute ?
              (
-               <ClimbingRoute climbingRoute={climbingRoute} wall={wall} />
+               <ClimbingRoute climbingRoute={climbingRoute}
+               wall={wall}
+               user={user}
+               />
              )
              :
              (
