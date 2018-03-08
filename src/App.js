@@ -250,7 +250,6 @@ class App extends Component {
     // allows getSection to always have access to the state
     this.getSection = this.getSection.bind(this)
     this.changePW = this.changePW.bind(this)
-    this.logOut = this.logOut.bind(this)
     this.setUserState = this.setUserState.bind(this)
   }
 
@@ -288,24 +287,6 @@ class App extends Component {
        })
     })
       .then(res => res)
-      .catch(error => console.error('Error:', error))
-  }
-
-  logOut() {
-    if (!this.state.user || !this.state.user.token) return
-    const user = this.state.user
-    return fetch(`http://localhost:4741/sign-out/${user.id}`, {
-      headers: new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': `Token token=${user.token}`
-    }),
-       method: 'DELETE'
-    })
-      .then(() =>  {
-        this.setState({
-          user: null
-        })
-      })
       .catch(error => console.error('Error:', error))
   }
 
@@ -370,8 +351,7 @@ class App extends Component {
       }
         <button className="btn" onClick={this.getSection}>Update Page States</button>
         <button className="btn" onClick={this.changePW}>Chagen PW</button>
-        <button className="btn" onClick={this.logOut}>Log Out</button>
-        <button className="btn" onClick={() => console.log(this.state.user)}>State</button>
+        <button className="btn" onClick={() => console.log(this.state)}>State</button>
        </div>
       </div>
     </div>
