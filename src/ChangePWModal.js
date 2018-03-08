@@ -61,10 +61,10 @@ class ChangePWModal extends Component {
           , 1000)
           return true
         } else {
-          this.setErrorMessageState('Unable to fullfill you request.  Maybe you mistyped your password?')
+          this.setErrorMessageState('Unable to process your request.  Maybe you mistyped your password?')
         }
       })
-      .catch(error =>   this.setErrorMessageState('Unable to fullfill you request.'))
+      .catch(error =>   this.setErrorMessageState('Unable to process your request.'))
 
   }
 

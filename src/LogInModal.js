@@ -40,7 +40,7 @@ class LogInModal extends Component {
     .then(res => res.json())
     .then(myJson =>  {
       if (myJson.error)
-      return this.setErrorMessageState('Unable to fullfill you request.  Please try again!')
+      return this.setErrorMessageState('Unable to process your request.  Please try again!')
       document.querySelectorAll('.modal-close').forEach(m =>
         m.click()
       )

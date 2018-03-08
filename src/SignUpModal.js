@@ -45,7 +45,7 @@ class SignUpModal extends Component {
       .then(res => res.json())
       .then(myJson => {
         if (myJson.error) {
-          return this.setErrorMessageState('Unable to fullfill you request.  User name possibly taken.')
+          return this.setErrorMessageState('Unable to process your request.  User name possibly taken.')
         }
         this.setState({
           successMessage: "You've Signed up!!"
@@ -61,7 +61,7 @@ class SignUpModal extends Component {
         }
         , 1000)
       })
-      .catch(error =>   this.setErrorMessageState('Unable to fullfill you request.'))
+      .catch(error =>   this.setErrorMessageState('Unable to process your request.'))
 
   }
 
