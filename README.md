@@ -1,6 +1,6 @@
 # Climb Rater
 ### Built with React
-![ClimbRater App mobile](public/Screenshot from 2018-03-09 01-12-15.png)
+![ClimbRater App mobile](https://s3.amazonaws.com/wibbed/Screenshot+from+2018-03-09+01-12-15.png)
 
 What are you waiting for? Check out the deployed [site](https://briankeegan.github.io/climb-rater/)
 
