@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import './App.css'
+import { Link } from 'react-router-dom'
 import DivLink from './DivLink'
-import {Button, Icon, Modal} from 'react-materialize'
 import Nav from './Nav'
+import RateClimbModal from './RateClimbModal'
 
 const toUrl = (string) => (
   string.split(' ').join('').toLowerCase()
@@ -101,6 +102,7 @@ const WallRoute = ({ climbingRoute }) => {
   const { color, gymGrade, routeSetter, routeType, createdAt, ratings } = climbingRoute
   const date = new Date(createdAt).toDateString()
   const colorLowerCase = color ? color.toLowerCase() : 'grey'
+
   return(
     <div className="col s12 ">
     <div className={"card-panel " + colorLowerCase + " lighten-4 z-depth-1"}>
@@ -187,10 +189,17 @@ const GetClimberGrades = ({ ratings }) => {
   )
 }
 
-const ClimbingRoute = ({ climbingRoute, wall }) => {
-  const { color, gymGrade, ratings, routeSetter, routeType, createdAt } = climbingRoute
+const ClimbingRoute = ({ climbingRoute, wall, user, getSection }) => {
+  const { color, gymGrade, ratings, routeSetter, routeType, createdAt, _id } = climbingRoute
   const { number, imageURL } = wall
   const date = new Date(createdAt).toDateString()
+
+  const saveRating = ratings.find(r => {
+    const u = user && user.user && user.user._id
+    return (u === r._owner) && r
+    }
+  )
+
   return (
     <div className="col s12 m8 offset-m2 l6 offset-l3">
       <div className="card-panel grey lighten-5 z-depth-1">
@@ -202,7 +211,23 @@ const ClimbingRoute = ({ climbingRoute, wall }) => {
         </div>
         <div className="row">
           <div className="col s6">
-            <button className="btn">Rate climb!</button>
+            {user
+              ?
+              (
+                <RateClimbModal
+                  store={user}
+                  routeId={_id}
+                  color={color}
+                  number={number}
+                  getSection={getSection}
+                  saveRating={saveRating}
+                  />
+              )
+              :
+              (
+                <p className="purple-text">Sign In Above to rate route!</p>
+              )
+            }
             <p>Gym Grade: {gymGrade}</p>
             <p>{routeType}</p>
             <p>Setter: {routeSetter}</p>
@@ -250,9 +275,13 @@ class App extends Component {
     }
     // allows getSection to always have access to the state
     this.getSection = this.getSection.bind(this)
-    this.logIn = this.logIn.bind(this)
-    this.changePW = this.changePW.bind(this)
-    this.logOut = this.logOut.bind(this)
+    this.setUserState = this.setUserState.bind(this)
+  }
+
+  setUserState(data) {
+    this.setState({
+      user: data
+    })
   }
 
   getSection() {
@@ -264,83 +293,6 @@ class App extends Component {
         })
       })
       .catch(error => console.error('Error:', error))
-  }
-
-  logIn(user_name, password) {
-    return fetch(`https://climb-rater-api.herokuapp.com/sign-in`, {
-      headers: new Headers({
-      'Content-Type': 'application/json'
-    }),
-       method: 'POST',
-       body: JSON.stringify({
-         "credentials": {
-           "email": user_name,
-           "password":  password
-         }
-       })
-    })
-    .then(res => res.json())
-    .then(myJson =>  {
-      if (myJson.error) return myJson
-      this.setState({
-        user: myJson.user
-      })
-      return this
-    })
-    .catch(error => error)
-  }
-
-  changePW() {
-    if (!this.state.user || !this.state.user.token) return
-    const user = this.state.user
-    return fetch(`https://climb-rater-api.herokuapp.com/change-password/${user.id}`, {
-      headers: new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': `Token token=${user.token}`
-    }),
-       method: 'PATCH',
-       body: JSON.stringify({
-         "passwords": {
-           "old": "ls",
-           "new": "ls"
-         }
-       })
-    })
-      .then(res => res)
-      .catch(error => console.error('Error:', error))
-  }
-
-  logOut() {
-    if (!this.state.user || !this.state.user.token) return
-    const user = this.state.user
-    return fetch(`https://climb-rater-api.herokuapp.com/sign-out/${user.id}`, {
-      headers: new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': `Token token=${user.token}`
-    }),
-       method: 'DELETE'
-    })
-      .then(() =>  {
-        this.setState({
-          user: null
-        })
-      })
-      .catch(error => console.error('Error:', error))
-  }
-
-  signUp(email, password) {
-    return fetch(`https://climb-rater-api.herokuapp.com/sign-up`, {
-      headers: new Headers({
-      'Content-Type': 'application/json'
-    }),
-       method: 'POST',
-       body: JSON.stringify({
-         "credentials": {
-           "email": email,
-           "password": password
-         }
-       })
-    })
   }
 
   componentDidMount() {
@@ -355,10 +307,13 @@ class App extends Component {
 
   render() {
 
-    const { sections } = this.state;
+    const { sections, user } = this.state;
     return (
     <div>
-      <Nav signUp={this.signUp} logIn={this.logIn}/>
+      <Nav
+        user={user}
+        setUserState={this.setUserState}
+        />
       <div className="container">
        <div>
          <Route exact path="/" render={() => <Sections sections={sections}/>}/>
@@ -374,7 +329,10 @@ class App extends Component {
               )
                :
              (
-                <h2 className="center red-text">Content not found</h2>
+               <div>
+                 <h2 className="center red-text">Content not found.</h2>
+                 <h4>Are you lost? Come <Link to="/">Home</Link></h4>
+               </div>
               )
            }}/>
            <Route path={`/:name/:number/:color`} render={({ match }) => {
@@ -389,30 +347,25 @@ class App extends Component {
              })
              return climbingRoute ?
              (
-               <ClimbingRoute climbingRoute={climbingRoute} wall={wall} />
+               <ClimbingRoute climbingRoute={climbingRoute}
+               wall={wall}
+               user={user}
+               getSection={this.getSection}
+               />
              )
              :
              (
-               <h2 className="center red-text">Content not found</h2>
+               <div>
+                <h2 className="center red-text">Content not found.</h2>
+                <h4>Are you lost? Come <Link to="/">Home</Link></h4>
+              </div>
              )
            } }/>
            </div>
         )
       }
         <button className="btn" onClick={this.getSection}>Update Page States</button>
-        <button className="btn" onClick={this.logIn}>Log In</button>
-        <button className="btn" onClick={this.signUp}>Sign Up</button>
-        <button className="btn" onClick={this.changePW}>Chagen PW</button>
-        <button className="btn" onClick={this.logOut}>Log Out</button>
-        <button className="btn" onClick={() => console.log(this.state.user)}>State</button>
-        <Button waves='light'>
-    <Icon>thumb_up</Icon>
-  </Button>
-  <Modal
-  header='Modal Header'
-  trigger={<Button>MODAL</Button>}>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-</Modal>
+        <button className="btn" onClick={() => console.log(this.state)}>State</button>
        </div>
       </div>
     </div>

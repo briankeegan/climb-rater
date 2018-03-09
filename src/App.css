@@ -57,3 +57,6 @@
 .brand-name {
   font-size: 25px;
 }
+.select-dropdown {
+  max-height: 200px;
+}
