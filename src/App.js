@@ -101,7 +101,8 @@ const Ratings = ({ ratings }) => {
 const WallRoute = ({ climbingRoute }) => {
   const { color, gymGrade, routeSetter, routeType, createdAt, ratings } = climbingRoute
   const date = new Date(createdAt).toDateString()
-  const colorLowerCase = color ? color.toLowerCase() : 'grey'
+  let colorLowerCase = color ? color.toLowerCase() : 'grey'
+  colorLowerCase = (colorLowerCase !== 'black') ?  colorLowerCase : 'grey darken-3'
 
   return(
     <div className="col s12 ">
@@ -364,8 +365,6 @@ class App extends Component {
            </div>
         )
       }
-        <button className="btn" onClick={this.getSection}>Update Page States</button>
-        <button className="btn" onClick={() => console.log(this.state)}>State</button>
        </div>
       </div>
     </div>

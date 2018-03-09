@@ -150,6 +150,7 @@ class RateClimbModal extends Component {
         <div className="row">
           <Input s={5} type='select' label="What did the route feel like?" defaultValue='0'>
             <option value='0' disabled>Grade</option>
+            <option value='5.5'>5.5</option>
             <option value='5.6'>5.6</option>
             <option value='5.7'>5.7</option>
             <option value='5.8'>5.8</option>
