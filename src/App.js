@@ -102,6 +102,7 @@ const WallRoute = ({ climbingRoute }) => {
   const { color, gymGrade, routeSetter, routeType, createdAt, ratings } = climbingRoute
   const date = new Date(createdAt).toDateString()
   const colorLowerCase = color ? color.toLowerCase() : 'grey'
+
   return(
     <div className="col s12 ">
     <div className={"card-panel " + colorLowerCase + " lighten-4 z-depth-1"}>
@@ -188,10 +189,17 @@ const GetClimberGrades = ({ ratings }) => {
   )
 }
 
-const ClimbingRoute = ({ climbingRoute, wall, user }) => {
+const ClimbingRoute = ({ climbingRoute, wall, user, getSection }) => {
   const { color, gymGrade, ratings, routeSetter, routeType, createdAt, _id } = climbingRoute
   const { number, imageURL } = wall
   const date = new Date(createdAt).toDateString()
+
+  const saveRating = ratings.find(r => {
+    const u = user && user.user && user.user._id
+    return (u === r._owner) && r
+    }
+  )
+
   return (
     <div className="col s12 m8 offset-m2 l6 offset-l3">
       <div className="card-panel grey lighten-5 z-depth-1">
@@ -204,8 +212,16 @@ const ClimbingRoute = ({ climbingRoute, wall, user }) => {
         <div className="row">
           <div className="col s6">
             {user
-              ?(
-                <RateClimbModal store={user} routeId={_id}/>
+              ?
+              (
+                <RateClimbModal
+                  store={user}
+                  routeId={_id}
+                  color={color}
+                  number={number}
+                  getSection={getSection}
+                  saveRating={saveRating}
+                  />
               )
               :
               (
@@ -334,6 +350,7 @@ class App extends Component {
                <ClimbingRoute climbingRoute={climbingRoute}
                wall={wall}
                user={user}
+               getSection={this.getSection}
                />
              )
              :

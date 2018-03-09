@@ -12,8 +12,44 @@ class RateClimbModal extends Component {
     }
     this.onSubmit = this.onSubmit.bind(this)
     this.setErrorMessageState = setErrorMessageState.bind(this)
+    this.onDelete = this.onDelete.bind(this)
   }
 
+  onDelete () {
+    const user = this.props.store.user
+    const saveRating = this.props.saveRating
+    fetch(`http://localhost:4741/ratings/${saveRating._id}`, {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': `Token token=${user.token}`
+    }),
+       method: 'DELETE'
+    })
+    .then(res => {
+      if (res.status === 204) {
+        this.setState({
+          successMessage: "Rating deleted"
+        })
+        setTimeout(() => {
+          this.setState({
+            successMessage: ""
+          })
+          document.querySelectorAll('.modal-close').forEach(m =>
+            m.click()
+          )
+          document.querySelector('#rate_climb_form').reset()
+        }
+        , 800)
+      } else {
+        this.setErrorMessageState('Unable to process your request.  You shouldn\'t be seeing this... sorry')
+      }
+    })
+    .catch(error =>   this.setErrorMessageState('Unable to process your request.'))
+    .then(() => this.props.getSection())
+
+  }
+
+  // store routeId getSection saveRating number color
 
   onSubmit (e) {
     e.preventDefault()
@@ -29,19 +65,23 @@ class RateClimbModal extends Component {
     const user = this.props.store.user
     const routeId = this.props.routeId
 
-    console.log(routeId)
-    // if ratings is zero, or grade is default
+    const saveRating = this.props.saveRating
+    // if saveRatings is zero, or grade is default
+    const urlExt = saveRating ? `/${saveRating._id}` : ''
+    const restful = saveRating ? 'PATCH' : 'POST'
+    const success = saveRating ? "Rating updated" : "Thanks for your input!"
+
     if(!rating || (grade ==="Grade")) {
       return this.setErrorMessageState('All fields required')
     }
 
     // send http reqeust
-    fetch(`http://localhost:4741/ratings`, {
+    fetch(`http://localhost:4741/ratings${urlExt}`, {
       headers: new Headers({
         'Content-Type': 'application/json',
         'Authorization': `Token token=${user.token}`
     }),
-       method: 'POST',
+       method: restful,
        body: JSON.stringify({
          "rating": {
            "climberGrade": grade,
@@ -51,10 +91,9 @@ class RateClimbModal extends Component {
        })
     })
       .then(res => {
-        console.log(res)
-        if (res.status === 201) {
+        if ((res.status === 201) || (res.status === 204)) {
           this.setState({
-            successMessage: "Thanks for your input!"
+            successMessage: success
           })
           setTimeout(() => {
             this.setState({
@@ -67,25 +106,30 @@ class RateClimbModal extends Component {
           }
           , 1300)
         } else {
-          this.setErrorMessageState('Unable to process your request.  It\s not you, it\'s us...')
+          this.setErrorMessageState('Unable to process your request.  You shouldn\'t be seeing this... sorry')
         }
       })
       .catch(error =>   this.setErrorMessageState('Unable to process your request.'))
+      .then(() => this.props.getSection())
 
   }
 
   render() {
+    const { saveRating, number, color} = this.props
+
   return (
     <Modal
-    header='RED: #2010'
+    header={`${color.toUpperCase()}: #${number}`}
     trigger={<Button waves='light'>
-      Rate Climb
+      {saveRating ? 'Update Rating' : 'Rate Climb'}
      </Button>}>
     <div className="row">
      <form id="rate_climb_form" className="col s12" onSubmit={this.onSubmit}>
      <h5 className="center">How was the Route?</h5>
       <div className="row">
         <div>
+
+
           <input name="carabiners" value="1" type="radio" id="rate1" />
           <label htmlFor="rate1">1</label>
 
@@ -100,6 +144,7 @@ class RateClimbModal extends Component {
 
           <input name="carabiners" value="5" type="radio" id="rate5" />
           <label htmlFor="rate5">5</label>
+
         </div>
       </div>
         <div className="row">
@@ -134,7 +179,6 @@ class RateClimbModal extends Component {
           </Input>
         </div>
 
-
         <div className="center">
           <h5 className="red-text">{this.state.errorMessage}</h5>
         </div>
@@ -142,9 +186,17 @@ class RateClimbModal extends Component {
           <h5 className="green-text">{this.state.successMessage}</h5>
         </div>
         <Button waves='light'>
-          Submit!
+          {saveRating ? 'Update!' : 'Submit!'}
          </Button>
-     </form>
+
+         {saveRating &&
+           (
+             <Button type="button" className="red right" waves='light' onClick={this.onDelete}>
+               Delete Rating
+              </Button>
+           )
+         }
+      </form>
  </div>
 
   </Modal>
