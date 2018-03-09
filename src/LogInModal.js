@@ -25,7 +25,7 @@ class LogInModal extends Component {
       return this.setErrorMessageState('No blank fields allowed.')
     }
 
-    fetch(`http://localhost:4741/sign-in`, {
+    fetch(`https://climb-rater-api.herokuapp.com/sign-in`, {
       headers: new Headers({
       'Content-Type': 'application/json'
     }),
