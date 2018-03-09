@@ -285,7 +285,7 @@ class App extends Component {
   }
 
   getSection() {
-    return fetch(`https://climb-rater-api.herokuapp.com`)
+    return fetch(`http://localhost:4741`)
       .then(res => res.json())
       .then(myJson =>  {
         this.setState({
