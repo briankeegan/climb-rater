@@ -105,7 +105,7 @@ const WallRoute = ({ climbingRoute }) => {
   colorLowerCase = (colorLowerCase !== 'black') ?  colorLowerCase : 'grey darken-3'
 
   return(
-    <div className="col s12 ">
+    <div className="col s12 wall-route">
     <div className={"card-panel " + colorLowerCase + " lighten-4 z-depth-1"}>
       <div className="row valign-wrapper">
         <div className="col s6">
@@ -204,14 +204,14 @@ const ClimbingRoute = ({ climbingRoute, wall, user, getSection }) => {
   return (
     <div className="col s12 m8 offset-m2 l6 offset-l3">
       <div className="card-panel grey lighten-5 z-depth-1">
+
         <div className="row valign-wrapper">
-          <div className="col s12 image-container center">
-            <h1 className="image-title2">{color.toUpperCase()}: #{number}</h1>
+          <div className="col s4 image-container center">
+            <h4 className="image-title2">{color.toUpperCase()}: #{number}</h4>
             <img src={imageURL} alt={`Route #${number}`} className="square responsive-img" />
           </div>
-        </div>
-        <div className="row">
-          <div className="col s6">
+
+          <div className="col s4">
             {user
               ?
               (
@@ -246,7 +246,7 @@ const ClimbingRoute = ({ climbingRoute, wall, user, getSection }) => {
               )
             }
           </div>
-          <div className="col s6">
+          <div className="col s4">
           {(ratings.length !== 0)
             ?
             (
