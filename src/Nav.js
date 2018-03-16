@@ -3,27 +3,35 @@ import './App.css'
 import { Link } from 'react-router-dom'
 import SignUpModal from './SignUpModal'
 import LogInModal from './LogInModal'
-import ChangePWModal from './ChangePWModal'
-import LogOut from './LogOut'
+import Account from './Account'
+
 
 const  Nav = ( { user, setUserState } ) => {
+  console.log(user)
   return (
     <div className="navbar navbar-fixed scrollspy">
       <nav className="teal darken-2">
         <div className="container">
           <div className="nav-wrapper">
             <Link to="/" className="brand-name" >Climb Rater</Link>
+            <ul className="left">
+              <li>
+              <Link to="/" className="brand-name" >
+                <i className="material-icons">home</i>
+              </Link>
+              </li>
+
+            </ul>
             <ul className="right">
             {user
             ?
             (
               <div>
-                <li><ChangePWModal store={user}/></li>
                 <li>
-                  <LogOut
-                    user={user}
-                    setUserState={setUserState}
-                  />
+                <Account
+                  user={user}
+                  setUserState={setUserState}
+                />
                 </li>
               </div>
             )
