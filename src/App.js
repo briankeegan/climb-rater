@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import './App.css'
-import { Link } from 'react-router-dom'
 import DivLink from './DivLink'
 import Nav from './Nav'
 import RateClimbModal from './RateClimbModal'
+import Spinner from './Spinner'
 
 const toUrl = (string) => (
   string.split(' ').join('').toLowerCase()
@@ -317,7 +317,17 @@ class App extends Component {
         />
       <div className="container">
        <div>
-         <Route exact path="/" render={() => <Sections sections={sections}/>}/>
+          { sections ?
+            (
+              <Route exact path="/" render={() => <Sections sections={sections}/>}/>
+            )
+            :
+            (
+              <Spinner />
+            )
+
+          }
+
          { sections && (
            <div>
            <Route exact path="/:name" render={( {match} ) => {
