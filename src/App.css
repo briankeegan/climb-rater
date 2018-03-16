@@ -57,6 +57,12 @@
 .brand-name {
   font-size: 25px;
 }
+
 .select-dropdown {
   max-height: 200px;
+}
+
+.preloader-wrapper {
+  display: block;
+  margin: 50px auto;
 }
