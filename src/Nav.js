@@ -7,7 +7,6 @@ import Account from './Account'
 
 
 const  Nav = ( { user, setUserState } ) => {
-  console.log(user)
   return (
     <div className="navbar navbar-fixed scrollspy">
       <nav className="teal darken-2">
