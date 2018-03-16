@@ -15,7 +15,7 @@ class SignUpModal extends Component {
   }
 
 
-  onSubmit (e) {
+  onSubmit (e, setUserState) {
     e.preventDefault()
     const user_name = document.getElementById('sign_up_user_name').value
     const password = document.getElementById('sign_up_password').value
@@ -42,27 +42,18 @@ class SignUpModal extends Component {
          }
        })
     })
-      .then(res => res.json())
-      .then(myJson => {
-        if (myJson.error) {
-          return this.setErrorMessageState('Unable to process your request.  User name possibly taken.')
-        }
-        this.setState({
-          successMessage: "You've Signed up!!"
-        })
-        setTimeout(() => {
-          this.setState({
-            successMessage: ""
-          })
-          document.querySelectorAll('.modal-close').forEach(m =>
-            m.click()
-          )
-          document.querySelector('#sign_up_form').reset()
-        }
-        , 1000)
-      })
-      .catch(error =>   this.setErrorMessageState('Unable to process your request.'))
-
+    .then(res => res.json())
+    .then(myJson =>  {
+      if (myJson.error)
+      return this.setErrorMessageState('Unable to process your request.  Please try again!')
+      document.querySelectorAll('.modal-close').forEach(m =>
+        m.click()
+      )
+      document.querySelector('#log_in_form').reset()
+      return myJson
+    })
+    .then(this.props.setUserState)
+    .catch(error => error)
   }
 
   render() {

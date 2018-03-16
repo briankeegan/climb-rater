@@ -14,7 +14,7 @@ class LogInModal extends Component {
     this.setErrorMessageState = setErrorMessageState.bind(this)
   }
 
-  onSubmit(e, setUserState) {
+  onSubmit(e) {
     e.preventDefault()
     // get values from form
     const user_name = document.getElementById('log_in_user_name').value
@@ -47,7 +47,7 @@ class LogInModal extends Component {
       document.querySelector('#log_in_form').reset()
       return myJson
     })
-    .then(setUserState)
+    .then(this.props.setUserState)
     .catch(error => error)
   }
 
@@ -59,7 +59,7 @@ class LogInModal extends Component {
         header='Log In'
         trigger={<a href="#portfolio">Log In</a>}>
         <div className="row">
-       <form id="log_in_form" className="col s12" onSubmit={(e) => this.onSubmit(e, this.props.setUserState)}>
+       <form id="log_in_form" className="col s12" onSubmit={(e) => this.onSubmit(e)}>
 
          <div className="row">
            <div className="input-field col m8 offset-m2">

@@ -1,3 +1,5 @@
+import React from 'react'
+
 const logOut = function(data, setUserState) {
   const user = data.user
    fetch(`https://climb-rater-api.herokuapp.com/sign-out/${user.id}`, {
@@ -15,4 +17,8 @@ const logOut = function(data, setUserState) {
     )
 }
 
-export default logOut;
+const LogOut = ({ user, setUserState }) => (
+  <a onClick={() => logOut(user, setUserState)}>Log Out</a>
+)
+
+export default LogOut;
