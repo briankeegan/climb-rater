@@ -66,3 +66,13 @@
   display: block;
   margin: 50px auto;
 }
+
+nav i.material-icons {
+  font-size: 36px;
+}
+
+@media only screen and (max-width: 600px){
+  nav > .container{
+    width:100%;
+  }
+}

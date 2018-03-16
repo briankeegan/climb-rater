@@ -72,8 +72,8 @@ class ChangePWModal extends Component {
   return (
     <Modal
     header='Change Password'
-    trigger={<a href="#portfolio">Change PW</a>}>
-    <div className="row">
+    trigger={<li><a href="#portfolio">Change PW</a></li>}>
+
    <form id="change_pw_form" className="col s12" onSubmit={this.onSubmit}>
 
    <div className="row">
@@ -104,7 +104,6 @@ class ChangePWModal extends Component {
         Submit!
        </Button>
    </form>
- </div>
 
   </Modal>
 )}
