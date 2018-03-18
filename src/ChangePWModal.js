@@ -58,7 +58,7 @@ class ChangePWModal extends Component {
             )
             document.querySelector('#change_pw_form').reset()
           }
-          , 1000)
+          , 350)
           return true
         } else {
           this.setErrorMessageState('Unable to process your request.  Maybe you mistyped your password?')

@@ -40,7 +40,7 @@ class RateClimbModal extends Component {
           )
           document.querySelector('#rate_climb_form').reset()
         }
-        , 800)
+        , 350)
       } else {
         this.setErrorMessageState('Unable to process your request.  You shouldn\'t be seeing this... sorry')
       }
@@ -104,7 +104,7 @@ class RateClimbModal extends Component {
               m.click()
             )
           }
-          , 1300)
+          , 350)
         } else {
           this.setErrorMessageState('Unable to process your request.  You shouldn\'t be seeing this... sorry')
         }
