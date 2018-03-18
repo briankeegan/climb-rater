@@ -78,9 +78,7 @@ const ClimbingRoute = ({ climbingRoute, wall, user, getSection }) => {
           {(ratings.length !== 0)
             ?
             (
-              <div>
-                <h5>Rating: <Ratings ratings={ratings} /></h5>
-              </div>
+                <Ratings ratings={ratings} />
             )
             :
             (

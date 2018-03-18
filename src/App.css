@@ -71,6 +71,46 @@ nav i.material-icons {
   font-size: 36px;
 }
 
+.carabiners-container {
+  width: 75%;
+}
+
+[type="radio"]:not(:checked) + label::before, [type="radio"]:not(:checked) + label::after, [type="radio"]:checked + label::after, .with-gap[type="radio"]:checked + label::after {
+    display: none;
+}
+
+[type="radio"]:not(:checked)+label, [type="radio"]:checked+label {
+padding: none;
+margin: none;
+cursor: pointer;
+display: inline-block;
+height: 40px;
+line-height: 0;
+font-size: 0;
+transition: .28s ease;
+  float: right;
+}
+
+[type="radio"]:hover ~label img {
+     filter: opacity(50%);
+ }
+
+[type="radio"]:checked ~label img {
+      filter: opacity(90%);
+ }
+
+label img {
+    filter: opacity(20%);
+}
+
+.carabiners img {
+  height: 30px;
+  width: auto;
+}
+img.unfilled {
+    filter: opacity(20%);
+}
+
 @media only screen and (max-width: 600px){
   nav > .container{
     width:100%;

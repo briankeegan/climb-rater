@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dropdown, NavItem} from 'react-materialize'
+import {Dropdown} from 'react-materialize'
 import ChangePWModal from './ChangePWModal'
 import LogOut from './LogOut'
 
