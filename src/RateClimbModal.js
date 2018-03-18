@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css'
 import {Modal, Button, Input} from 'react-materialize'
 import setErrorMessageState from './SetErrorMessageState'
+import RateWithCarabiners from './RateWithCarabiners'
 
 class RateClimbModal extends Component {
   constructor(props) {
@@ -102,7 +103,6 @@ class RateClimbModal extends Component {
             document.querySelectorAll('.modal-close').forEach(m =>
               m.click()
             )
-            document.querySelector('#rate_climb_form').reset()
           }
           , 1300)
         } else {
@@ -127,28 +127,12 @@ class RateClimbModal extends Component {
      <form id="rate_climb_form" className="col s12" onSubmit={this.onSubmit}>
      <h5 className="center">How was the Route?</h5>
       <div className="row">
-        <div>
-
-
-          <input name="carabiners" value="1" type="radio" id="rate1" />
-          <label htmlFor="rate1">1</label>
-
-          <input name="carabiners" value="2" type="radio" id="rate2" />
-          <label htmlFor="rate2">2</label>
-
-          <input name="carabiners" value="3" type="radio" id="rate3" />
-          <label htmlFor="rate3">3</label>
-
-          <input name="carabiners" value="4" type="radio" id="rate4" />
-          <label htmlFor="rate4">4</label>
-
-          <input name="carabiners" value="5" type="radio" id="rate5" />
-          <label htmlFor="rate5">5</label>
-
-        </div>
+        <RateWithCarabiners saveRating={saveRating}/>
       </div>
         <div className="row">
-          <Input s={5} type='select' label="What did the route feel like?" defaultValue='0'>
+          <Input s={5} type='select' label="What did the route feel like?" defaultValue={
+            (saveRating && saveRating.climberGrade) || 0
+          }>
             <option value='0' disabled>Grade</option>
             <option value='5.5'>5.5</option>
             <option value='5.6'>5.6</option>
