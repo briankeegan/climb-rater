@@ -5,7 +5,7 @@ const WallRoute = ({ climbingRoute }) => {
   const { color, gymGrade, routeSetter, routeType, createdAt, ratings } = climbingRoute
   const date = new Date(createdAt).toDateString()
   let colorLowerCase = color ? color.toLowerCase() : 'grey'
-  colorLowerCase = (colorLowerCase !== 'black') ?  colorLowerCase : 'grey darken-3'
+  colorLowerCase = (colorLowerCase !== 'black') ?  colorLowerCase : 'grey darken-1'
 
   return(
     <div className="col s12 wall-route">
@@ -18,9 +18,7 @@ const WallRoute = ({ climbingRoute }) => {
         </div>
         <div className="col s6 right">
           {(ratings.length !== 0) &&
-            <div>
-              <p>Rating: <Ratings ratings={ratings} /></p>
-            </div>
+              <Ratings ratings={ratings} color={colorLowerCase} />
           }
           <p>{date}</p>
         </div>
