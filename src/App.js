@@ -96,9 +96,12 @@ class App extends Component {
              const wall = section.walls.find(w => {
                return +w.number === +match.params.number
              })
-             const climbingRoute = wall.climbingRoutes.find(cr => {
+             let climbingRoute
+             if (wall) {
+               climbingRoute = wall.climbingRoutes.find(cr => {
                return (cr.color.toLowerCase() === match.params.color.toLowerCase())
              })
+            }
              return climbingRoute ?
              (
                <ClimbingRoute climbingRoute={climbingRoute}

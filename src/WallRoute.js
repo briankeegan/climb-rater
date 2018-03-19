@@ -16,10 +16,8 @@ const WallRoute = ({ climbingRoute }) => {
           <p>{routeType}</p>
           <p>Setter: {routeSetter}</p>
         </div>
-        <div className="col s6 right">
-          {(ratings.length !== 0) &&
-              <Ratings ratings={ratings} color={colorLowerCase} />
-          }
+        <div className="col s6 right rating-wall">
+          <Ratings ratings={ratings} color={colorLowerCase} />
           <p>{date}</p>
         </div>
       </div>

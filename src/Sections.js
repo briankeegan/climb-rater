@@ -5,11 +5,11 @@ import GetWallStats from './GetWallStats'
 const Section = ({name, url, walls}) => (
     <div className="col s12 m8 offset-m2 l6 offset-l3 climbingSection">
       <div className="card-panel grey lighten-5 z-depth-1">
-        <div className="row valign-wrapper">
-          <div className="col s4">
-            <img src={url} alt={name} className="circle responsive-img" />
+        <div className="row .v-align">
+          <div className="col s12 m5 section-image-container center">
+            <img src={url} alt={name} className="circle responsive-img center" />
           </div>
-          <div className="col s8 center">
+          <div className="col s12 m7 center">
             <h3>{name}</h3>
                 <GetWallStats walls={walls} />
           </div>
@@ -21,6 +21,7 @@ const Section = ({name, url, walls}) => (
 const Sections = ({sections}) => {
   return (
   <div>
+  <h1 className="center">BKB Somerville</h1>
     { sections &&
       sections
       .map(section => {

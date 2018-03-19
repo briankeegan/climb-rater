@@ -17,7 +17,7 @@ class RateWithCarabiners extends Component {
   render () {
   return (
     <div className="carabiners-container">
-      <input name="carabiners" value="5" type="radio" id="rate5"  checked={this.state.selectedOption === '5'}
+        <input name="carabiners" value="5" type="radio" id="rate5"  checked={this.state.selectedOption === '5'}
                       onChange={this.handleOptionChange}  />
       <label htmlFor="rate5"><img src={carabiner} alt="carabiner-icon"/></label>
 
