@@ -64,6 +64,13 @@ img.unfilled {
     filter: opacity(20%);
 }
 
+img.unfilled-absolute {
+    position: absolute;
+    left: 0;
+    top: -16px;
+    filter: opacity(20%);
+}
+
 .image-title {
   position: absolute;
     top: 30%;
