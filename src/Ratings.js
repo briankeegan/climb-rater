@@ -54,7 +54,7 @@ const Ratings = ({ ratings, color }) => {
     }
   }
   return (
-    <div>
+    <div className="ratings-holster">
       <div className="carabiners">{carabiners}</div>
       <div>Rating: {calculatedRating}</div>
     </div>

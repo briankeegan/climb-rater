@@ -34,26 +34,7 @@
 .right {
   text-align: right;
 }
-.image-container {
-  position: relative;
-}
 
-.image-title {
-  position: absolute;
-    top: 5%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  color: white;
-}
-
-.image-title2 {
-  position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    text-align: center;
-}
 .brand-name {
   font-size: 25px;
 }
@@ -107,12 +88,99 @@ label img {
   height: 30px;
   width: auto;
 }
+
 img.unfilled {
     filter: opacity(20%);
+}
+
+.image-title {
+  position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  color: white;
+}
+
+.image-title2 {
+  position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+}
+
+div.section-image-container {
+  height: 300px ;
+}
+div.section-image-container > img {
+  max-height: 300px
+}
+
+div.wall-image-container {
+  position: relative;
+  height: 550px;
+}
+
+div.wall-image-container > img {
+  margin: 0 auto;
+  max-height: 550px;
+  width: auto;
+}
+
+div.climbingroute-image-container {
+  position: relative;
+  height: 450px;
+}
+
+
+div.climbingroute-image-container> img {
+  margin: 0 auto;
+  max-height: 450px;
+  width: auto;
+}
+
+.ratings-holster {
+  position: relative;
+}
+
+@media only screen and (max-width: 992px){
+  div.section-image-container {
+    height: 200px ;
+  }
+  div.section-image-container > img {
+    max-height: 200px
+  }
+  .ratings-holster {
+    height: 20px;
+  }
+  .carabiners {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 150px;
+    transform: scale(0.5) translate(-100%, -100%);
+  }
+  .image-title, .image-title2 {
+    font-size: 45px;
+  }
+  .card-panel {
+    padding-bottom: 1%;
+  }
 }
 
 @media only screen and (max-width: 600px){
   nav > .container{
     width:100%;
+  }
+  .v-align {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
 }

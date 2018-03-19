@@ -12,9 +12,9 @@ const Wall = ({ wall, name }) => {
       <div className="col s12 m8 offset-m2 l6 offset-l3">
         <div className="card-panel grey lighten-5 z-depth-1">
           <div className="row valign-wrapper">
-            <div className="col s4 image-container">
-              <h1 className="image-title">#{number}</h1>
-              <img src={imageURL} alt="" className="square responsive-img" />
+            <div className="col s4 wall-image-container valign-wrapper">
+                <h1 className="image-title">#{number}</h1>
+                <img src={imageURL} alt="" className="square responsive-img" />
             </div>
             <div className="col s8">
             {climbingRoutes &&

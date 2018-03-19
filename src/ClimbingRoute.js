@@ -34,9 +34,9 @@ const ClimbingRoute = ({ climbingRoute, wall, user, getSection }) => {
       <div className="card-panel grey lighten-5 z-depth-1">
 
         <div className="row valign-wrapper">
-          <div className="col s4 image-container center">
-            <h4 className="image-title2">{color.toUpperCase()}: #{number}</h4>
-            <img src={imageURL} alt={`Route #${number}`} className="square responsive-img" />
+          <div className="col s4 climbingroute-image-container center">
+              <h4 className="image-title2">{color.toUpperCase()}: #{number}</h4>
+              <img src={imageURL} alt={`Route #${number}`} className="square responsive-img" />
           </div>
 
           <div className="col s4">
