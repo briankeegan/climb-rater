@@ -35,7 +35,7 @@ const ClimbingRoute = ({ climbingRoute, wall, user, getSection }) => {
 
         <div className="row valign-wrapper">
           <div className="col s4 climbingroute-image-container center valign-wrapper ">
-              <h4 className="image-title2">{color.toUpperCase()}: <br />#{number}</h4>
+              <h4 className="image-title2">{color.toUpperCase()}: <br /> #{number}</h4>
               <img src={imageURL} alt={`Route #${number}`} className="square responsive-img" />
           </div>
 
