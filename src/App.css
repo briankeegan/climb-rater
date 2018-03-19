@@ -2,31 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 .climbingSection:hover, .wall-route:hover {
   cursor: pointer;
 }
@@ -93,6 +68,10 @@ img.unfilled {
   position: absolute;
     top: 30%;
     left: 50%;
+    -webkit-transform: translate(-50%, -50%); /* WebKit */
+    -moz-transform: translate(-50%, -50%); /* Mozilla */
+    -o-transform: translate(-50%, -50%); /* Opera */
+    -ms-transform: translate(-50%, -50%); /* Internet Explorer */
     transform: translate(-50%, -50%);
   color: white;
 }
@@ -101,6 +80,10 @@ img.unfilled {
   position: absolute;
     top: 40%;
     left: 50%;
+    -webkit-transform: translate(-50%, -50%); /* WebKit */
+    -moz-transform: translate(-50%, -50%); /* Mozilla */
+    -o-transform: translate(-50%, -50%); /* Opera */
+    -ms-transform: translate(-50%, -50%); /* Internet Explorer */
     transform: translate(-50%, -50%);
     color: white;
     text-align: center;
@@ -167,6 +150,10 @@ div.climbingroute-image-container> img {
     top: -10px;
     left: 35px;
     width: 150px;
+    -webkit-transform: scale(0.5) translate(-100%, -100%); /* WebKit */
+    -moz-transform: scale(0.5) translate(-100%, -100%); /* Mozilla */
+    -o-transform: scale(0.5) translate(-100%, -100%); /* Opera */
+    -ms-transform: scale(0.5) translate(-100%, -100%); /* Internet Explorer */
     transform: scale(0.5) translate(-100%, -100%);
   }
   .rating-wall .carabiners {
@@ -190,6 +177,10 @@ div.climbingroute-image-container> img {
   }
   .carabiners-container {
     position: absolute;
+    -webkit-transform: translate(-15%, -100%); /* WebKit */
+    -moz-transform: translate(-15%, -100%); /* Mozilla */
+    -o-transform: translate(-15%, -100%); /* Opera */
+    -ms-transform: translate(-15%, -100%); /* Internet Explorer */
     transform: translate(-15%, -100%);
     width: 500px;
   }
@@ -213,6 +204,10 @@ div.climbingroute-image-container> img {
     margin-bottom: 50px;
   }
   .carabiners-container {
+    -webkit-transform: scale(0.7) translate(-40%, -200%); /* WebKit */
+    -moz-transform: scale(0.7) translate(-40%, -200%); /* Mozilla */
+    -o-transform: scale(0.7) translate(-40%, -200%); /* Opera */
+    -ms-transform: scale(0.7) translate(-40%, -200%); /* Internet Explorer */
     transform: scale(0.7) translate(-40%, -200%);
   }
 }
@@ -228,6 +223,16 @@ div.climbingroute-image-container> img {
     margin-bottom: 50px;
   }
   .carabiners-container {
-    transform: scale(0.5) translate(-70%, -250%);
+    -webkit-transform: scale(0.5) translate(-70%, -300%); /* WebKit */
+    -moz-transform: scale(0.5) translate(-70%, -300%); /* Mozilla */
+    -o-transform: scale(0.5) translate(-70%, -300%); /* Opera */
+    -ms-transform: scale(0.5) translate(-70%, -300%); /* Internet Explorer */
+    transform: scale(0.5) translate(-70%, -300%);
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  li a.brand-name {
+    display: none;
   }
 }
