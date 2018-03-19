@@ -24,7 +24,6 @@ const Ratings = ({ ratings, color }) => {
         <img src={carabiner} alt="carabiner-icon" key={i}/>
       )
     } else if (r > 0 && r < 1) {
-      console.log(r)
       // calculated proper percentage of width for %
       const wPercentage = -((r * 26)-26)
       r = 0
