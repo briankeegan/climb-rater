@@ -159,19 +159,19 @@ div.climbingroute-image-container> img {
   div.section-image-container > img {
     max-height: 200px
   }
-  .ratings-holster {
-    height: 20px;
-  }
+    .ratings-holster {
+      height: 20px;
+    }
   .carabiners {
     position: absolute;
-    top: -10px;
-    left: 35px;
     width: 150px;
+    -webkit-transform: scale(0.5) translate(-100%, -100%); /* WebKit */
+    -moz-transform: scale(0.5) translate(-100%, -100%); /* Mozilla */
+    -o-transform: scale(0.5) translate(-100%, -100%); /* Opera */
+    -ms-transform: scale(0.5) translate(-100%, -100%); /* Internet Explorer */
     transform: scale(0.5) translate(-100%, -100%);
   }
   .rating-wall .carabiners {
-      top: -10px;
-      left: 0;
   }
   .image-title {
     font-size: 45px;
@@ -189,9 +189,7 @@ div.climbingroute-image-container> img {
     margin-bottom: 50px;
   }
   .carabiners-container {
-    position: absolute;
-    transform: translate(-15%, -100%);
-    width: 500px;
+
   }
 }
 
@@ -213,6 +211,10 @@ div.climbingroute-image-container> img {
     margin-bottom: 50px;
   }
   .carabiners-container {
+    -webkit-transform: scale(0.7) translate(-40%, -200%); /* WebKit */
+    -moz-transform: scale(0.7) translate(-40%, -200%); /* Mozilla */
+    -o-transform: scale(0.7) translate(-40%, -200%); /* Opera */
+    -ms-transform: scale(0.7) translate(-40%, -200%); /* Internet Explorer */
     transform: scale(0.7) translate(-40%, -200%);
   }
 }
@@ -227,7 +229,33 @@ div.climbingroute-image-container> img {
   .before-rating {
     margin-bottom: 50px;
   }
+  .image-title {
+    font-size: 30px;
+  }
+  .image-title2 {
+    font-size: 15px;
+  }
+  .carabiners {
+    position: absolute;
+    width: 150px;
+    -webkit-transform: scale(0.5) translate(-100%, -100%); /* WebKit */
+    -moz-transform: scale(0.5) translate(-100%, -100%); /* Mozilla */
+    -o-transform: scale(0.5) translate(-100%, -100%); /* Opera */
+    -ms-transform: scale(0.5) translate(-100%, -100%); /* Internet Explorer */
+    transform: scale(0.5) translate(-100%, -200%);
+  }
   .carabiners-container {
-    transform: scale(0.5) translate(-70%, -250%);
+    -webkit-transform: scale(0.5) translate(-70%, -250%); /* WebKit */
+    -moz-transform: scale(0.5) translate(-70%, -250%); /* Mozilla */
+    -o-transform: scale(0.5) translate(-70%, -250%); /* Opera */
+    -ms-transform: scale(0.5) translate(-70%, -250%); /* Internet Explorer */
+    transform: scale(0.2) translate(-70%, -250%);
+
+  }
+}
+
+@media only screen and (max-width: 350px){
+  nav ul a.brand-name {
+    display: none;
   }
 }
