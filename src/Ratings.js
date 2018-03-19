@@ -7,10 +7,14 @@ const Ratings = ({ ratings, color }) => {
   const colorClass = color ?
    (color + " lighten-4")
    : ("white")
-  const calculatedRating = (ratings.reduce((tot, rating) => {
+  let calculatedRating = (ratings.reduce((tot, rating) => {
     const r = +rating.climberRating
     return tot += r
   }, 0) / ratings.length).toFixed(1)
+
+  calculatedRating = (calculatedRating !== 'NaN') ? calculatedRating : 'none'
+
+
 
   let carabiners = []
   for (let i = 0, r = calculatedRating; i < 5; i++) {

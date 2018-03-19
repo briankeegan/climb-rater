@@ -52,10 +52,6 @@ nav i.material-icons {
   font-size: 36px;
 }
 
-.carabiners-container {
-  width: 75%;
-}
-
 [type="radio"]:not(:checked) + label::before, [type="radio"]:not(:checked) + label::after, [type="radio"]:checked + label::after, .with-gap[type="radio"]:checked + label::after {
     display: none;
 }
@@ -144,6 +140,18 @@ div.climbingroute-image-container> img {
   position: relative;
 }
 
+
+.carabiners-container {
+  width: 75%;
+}
+
+
+@media only screen and (max-width: 1170px) {
+  .carabiners-container {
+    width: 90%;
+  }
+}
+
 @media only screen and (max-width: 992px){
   div.section-image-container {
     height: 200px ;
@@ -157,15 +165,33 @@ div.climbingroute-image-container> img {
   .carabiners {
     position: absolute;
     top: -10px;
-    left: 0;
+    left: 35px;
     width: 150px;
     transform: scale(0.5) translate(-100%, -100%);
   }
-  .image-title, .image-title2 {
+  .rating-wall .carabiners {
+      top: -10px;
+      left: 0;
+  }
+  .image-title {
     font-size: 45px;
+  }
+  .image-title2 {
+    font-size: 20px;
   }
   .card-panel {
     padding-bottom: 1%;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .before-rating {
+    margin-bottom: 50px;
+  }
+  .carabiners-container {
+    position: absolute;
+    transform: translate(-15%, -100%);
+    width: 500px;
   }
 }
 
@@ -182,5 +208,26 @@ div.climbingroute-image-container> img {
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
+  }
+  .before-rating {
+    margin-bottom: 50px;
+  }
+  .carabiners-container {
+    transform: scale(0.7) translate(-40%, -200%);
+  }
+}
+
+@media only screen and (max-width: 400px){
+  .waves-effect, .btn, .btn-large {
+    padding: 0;
+  }
+  .center > .waves-effect, .btn, .btn-large {
+    padding: inherit;
+  }
+  .before-rating {
+    margin-bottom: 50px;
+  }
+  .carabiners-container {
+    transform: scale(0.5) translate(-70%, -250%);
   }
 }

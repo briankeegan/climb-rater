@@ -125,7 +125,7 @@ class RateClimbModal extends Component {
      </Button>}>
     <div className="row">
      <form id="rate_climb_form" className="col s12" onSubmit={this.onSubmit}>
-     <h5 className="center">How was the Route?</h5>
+     <h5 className="center before-rating">How was the Route?</h5>
       <div className="row">
         <RateWithCarabiners saveRating={saveRating}/>
       </div>
