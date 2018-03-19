@@ -18,12 +18,13 @@ const Ratings = ({ ratings, color }) => {
 
   let carabiners = []
   for (let i = 0, r = calculatedRating; i < 5; i++) {
-    if (r - 1 > 0) {
+    if (r - 1 >= 0) {
       r--
       carabiners.push(
         <img src={carabiner} alt="carabiner-icon" key={i}/>
       )
-    } else if (r > 0) {
+    } else if (r > 0 && r < 1) {
+      console.log(r)
       // calculated proper percentage of width for %
       const wPercentage = -((r * 26)-26)
       r = 0
@@ -43,11 +44,7 @@ const Ratings = ({ ratings, color }) => {
           </div>
             <img src={carabiner} alt="carabiner-icon" key={i}/>
             {/* Below is to appear over the percentage div above*/}
-            <img src={carabiner} alt="carabiner-icon" key={'unfilled' + i} className="unfilled"
-            style={{
-              position: 'absolute',
-              left: '0'
-            }}/>
+            <img src={carabiner} alt="carabiner-icon" key={'unfilled' + i} className="unfilled-absolute"/>
         </span>
       )
     }
