@@ -21,7 +21,7 @@ const Section = ({name, url, walls}) => (
 const Sections = ({sections}) => {
   return (
   <div>
-  <h1 className="center">BKB Somerville</h1>
+  <h1 className="center">Brooklyn Boulders Somerville</h1>
     { sections &&
       sections
       .map(section => {
