@@ -18,7 +18,7 @@ Check it out!
 
 [Repo](https://github.com/briankeegan/climb-rater-api)
 
-[Heroku API](https://climb-rater-api.herokuapp.com/)
+[Heroku API](https://climb-rater-api-development.herokuapp.com/)
 
 
 ### Technologies
