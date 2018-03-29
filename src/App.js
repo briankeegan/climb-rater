@@ -11,8 +11,15 @@ const toUrl = (string) => (
   string.split(' ').join('').toLowerCase()
 )
 
+const NotFound = () => (
+  <div>
+    <h2 className="center red-text">Content not found.</h2>
+    <h4>Are you lost? Come <Link to="/">Home</Link></h4>
+  </div>
+)
+
 class App extends Component {
-  constructor(props) {
+  constructor() {
     super()
     this.state = {
       sections: null,
@@ -22,7 +29,7 @@ class App extends Component {
     this.getSection = this.getSection.bind(this)
     this.setUserState = this.setUserState.bind(this)
   }
-  
+
   setUserState(data) {
     this.setState({
       user: data
@@ -30,7 +37,7 @@ class App extends Component {
   }
 
   getSection() {
-    return fetch(`https://climb-rater-api-development.herokuapp.com`)
+    return fetch('https://climb-rater-api-development.herokuapp.com')
       .then(res => res.json())
       .then(myJson =>  {
         this.setState({
@@ -52,14 +59,14 @@ class App extends Component {
 
   render() {
 
-    const { sections, user } = this.state;
+    const { sections, user } = this.state
     return (
-    <div>
-      <Nav
-        user={user}
-        setUserState={this.setUserState}
+      <div>
+        <Nav
+          user={user}
+          setUserState={this.setUserState}
         />
-      <div className="container">
+        <div className="container">
           { sections ?
             (
               <Route exact path="/" render={() => <Sections sections={sections}/>}/>
@@ -71,59 +78,53 @@ class App extends Component {
 
           }
 
-         { sections && (
-           <div>
-           <Route exact path="/:name" render={( {match} ) => {
-             const section = sections.find(s => {
-               return toUrl(s.name) === toUrl(match.params.name)
-             })
-             return section ?
-              (
-                  <Walls section={section}/>
-              )
-               :
-             (
-               <div>
-                 <h2 className="center red-text">Content not found.</h2>
-                 <h4>Are you lost? Come <Link to="/">Home</Link></h4>
-               </div>
-              )
-           }}/>
-           <Route path={`/:name/:number/:color`} render={({ match }) => {
-             const section = sections.find(s => {
-               return toUrl(s.name) === toUrl(match.params.name)
-             })
-             const wall = section.walls.find(w => {
-               return +w.number === +match.params.number
-             })
-             let climbingRoute
-             if (wall) {
-               climbingRoute = wall.climbingRoutes.find(cr => {
-               return (cr.color.toLowerCase() === match.params.color.toLowerCase())
-             })
-            }
-             return climbingRoute ?
-             (
-               <ClimbingRoute climbingRoute={climbingRoute}
-               wall={wall}
-               user={user}
-               getSection={this.getSection}
-               />
-             )
-             :
-             (
-               <div>
-                <h2 className="center red-text">Content not found.</h2>
-                <h4>Are you lost? Come <Link to="/">Home</Link></h4>
-              </div>
-             )
-           } }/>
-           </div>
-        )
-      }
+          { sections && (
+            <div>
+              <Route exact path="/:name" render={( {match} ) => {
+                const section = sections.find(s => {
+                  return toUrl(s.name) === toUrl(match.params.name)
+                })
+                return section ?
+                  (
+                    <Walls section={section}/>
+                  )
+                  :
+                  (
+                    <NotFound />
+                  )
+              }}/>
+              <Route path={'/:name/:number/:color'} render={({ match }) => {
+                const section = sections.find(s => {
+                  return toUrl(s.name) === toUrl(match.params.name)
+                })
+                const wall = section.walls.find(w => {
+                  return +w.number === +match.params.number
+                })
+                let climbingRoute
+                if (wall) {
+                  climbingRoute = wall.climbingRoutes.find(cr => {
+                    return (cr.color.toLowerCase() ===    match.params.color.toLowerCase())
+                  })
+                }
+                return climbingRoute ?
+                  (
+                    <ClimbingRoute climbingRoute={climbingRoute}
+                      wall={wall}
+                      user={user}
+                      getSection={this.getSection}
+                    />
+                  )
+                  :
+                  (
+                    <NotFound />
+                  )
+              } }/>
+            </div>
+          )
+          }
+        </div>
       </div>
-    </div>
-    );
+    )
   }
 }
 
