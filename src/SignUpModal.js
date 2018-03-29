@@ -30,7 +30,7 @@ class SignUpModal extends Component {
       return this.setErrorMessageState('Passwords don\'t match.')
     }
     // send http reqeust
-    fetch(`https://climb-rater-api.herokuapp.com/sign-up`, {
+    fetch(`https://climb-rater-api-development.herokuapp.com/sign-up`, {
       headers: new Headers({
       'Content-Type': 'application/json'
     }),

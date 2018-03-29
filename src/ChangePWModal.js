@@ -31,7 +31,7 @@ class ChangePWModal extends Component {
     }
 
     // send http reqeust
-    fetch(`https://climb-rater-api.herokuapp.com/change-password/${user.id}`, {
+    fetch(`https://climb-rater-api-development.herokuapp.com/change-password/${user.id}`, {
       headers: new Headers({
         'Content-Type': 'application/json',
         'Authorization': `Token token=${user.token}`
