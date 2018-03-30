@@ -88,7 +88,7 @@ class App extends Component {
             {/* main view displaying all climbing Sections */}
             <Route exact path="/" render={() => <Sections sections={sections}/>} />
 
-            {/* ection view, showing single Section and all associated Walls (walls are numbered) */}
+            {/* Section view, showing single Section and all associated Walls (walls are numbered) */}
             <Route exact path="/:name"
               render={({ match }) => {
                 const section = sections.find(s => toUrl(s.name) === toUrl(match.params.name))
@@ -97,7 +97,7 @@ class App extends Component {
             />
 
             {/*
-              ClimbgingRoute view, based on name of Section, Wall number and ClimbingRoute color
+              ClimbgingRoute view, based on name of Section, Wall number and ClimbingRoute(climbingRoutes are colors)
               Shows single ClimbingRoute with option for authenticated user to login
             */}
             <Route
