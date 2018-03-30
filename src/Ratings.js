@@ -1,5 +1,5 @@
 import React from 'react'
-import GetCarabinerRating from "./GetCarabinerRating"
+import GetCarabinerRating from './GetCarabinerRating'
 
 
 const Ratings = ({ ratings, color = 'white' }) => {
