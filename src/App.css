@@ -27,6 +27,7 @@ nav i.material-icons {
   font-size: 36px;
 }
 
+/* Overwriting Materialize values for radio*/
 [type="radio"]:not(:checked) + label::before, [type="radio"]:not(:checked) + label::after, [type="radio"]:checked + label::after, .with-gap[type="radio"]:checked + label::after {
     display: none;
 }
@@ -60,6 +61,11 @@ label img {
   width: auto;
 }
 
+
+.ratings-holster {
+  position: relative;
+}
+
 img.unfilled {
     filter: opacity(20%);
 }
@@ -71,7 +77,7 @@ img.unfilled-absolute {
     filter: opacity(20%);
 }
 
-.image-title {
+.image-section-title {
   position: absolute;
     font-weight: 600;
     top: 30%;
@@ -84,7 +90,7 @@ img.unfilled-absolute {
   color: white;
 }
 
-.image-title2 {
+.image-wall-title {
   position: absolute;
     font-size: 1.8rem;
     font-weight: 600;
@@ -129,16 +135,11 @@ div.climbingroute-image-container> img {
   width: auto;
 }
 
-.ratings-holster {
-  position: relative;
-}
-
-
 .carabiners-container {
   width: 75%;
 }
 
-
+/* For responsive ratings, scaled down and made absolute positioning */
 @media only screen and (max-width: 1170px) {
   .carabiners-container {
     width: 90%;
@@ -166,10 +167,10 @@ div.climbingroute-image-container> img {
   }
   .rating-wall .carabiners {
   }
-  .image-title {
+  .image-section-title {
     font-size: 45px;
   }
-  .image-title2 {
+  .image-wall-title {
     font-size: 20px;
   }
   .card-panel {
@@ -228,10 +229,10 @@ div.climbingroute-image-container> img {
   .before-rating {
     margin-bottom: 50px;
   }
-  .image-title {
+  .image-section-title {
     font-size: 30px;
   }
-  .image-title2 {
+  .image-wall-title {
     font-size: 15px;
   }
   .carabiners {

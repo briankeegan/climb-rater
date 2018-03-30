@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import carabiner from '../carabiner.png'
+import carabiner from './carabiner.png'
 
 class RateWithCarabiners extends Component {
   constructor(props) {

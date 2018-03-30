@@ -1,5 +1,5 @@
 import React from 'react'
-import Ratings from '../Ratings'
+import Ratings from '../rating/Ratings'
 import RateClimbModal from './RateClimbModal'
 
 // creating Materialize badges based off of number of climberGrades.  Badges will show accordingly.
@@ -40,7 +40,7 @@ const ClimbingRoute = ({ climbingRoute, wall, user, getSection }) => {
 
         <div className="row valign-wrapper">
           <div className="col s4 climbingroute-image-container center valign-wrapper ">
-            <h4 className="image-title2">{color.toUpperCase()}: <br /> #{number}</h4>
+            <h4 className="image-wall-title">{color.toUpperCase()}: <br /> #{number}</h4>
             <img src={imageURL} alt={`Route #${number}`} className="square responsive-img" />
           </div>
 
