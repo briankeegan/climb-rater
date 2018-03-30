@@ -1,12 +1,8 @@
 import React from 'react'
-import carabiner from './carabiner.png';
+import GetCarabinerRating from "./GetCarabinerRating"
 
 
-const Ratings = ({ ratings, color }) => {
-  // if color is passed int, use it (same as from Climbing route),
-  const colorClass = color ?
-   (color + " lighten-4")
-   : ("white")
+const Ratings = ({ ratings, color = 'white' }) => {
   let calculatedRating = (ratings.reduce((tot, rating) => {
     const r = +rating.climberRating
     return tot += r
@@ -15,50 +11,12 @@ const Ratings = ({ ratings, color }) => {
   calculatedRating = (calculatedRating !== 'NaN') ? calculatedRating : 'none'
 
 
-
-  let carabiners = []
-  for (let i = 0, r = calculatedRating; i < 5; i++) {
-    if (r - 1 >= 0) {
-      r--
-      carabiners.push(
-        <img src={carabiner} alt="carabiner-icon" key={i}/>
-      )
-    } else if (r > 0 && r < 1) {
-      // calculated proper percentage of width for %
-      const wPercentage = -((r * 26)-26)
-      r = 0
-      //as such, need to specify style for each div divider
-      const cDiv = {
-        right: '0',
-        bottom: '0',
-        position: 'absolute',
-        height: '35px',
-        width: `${wPercentage}px`,
-        }
-      carabiners.push(
-        <span
-          style={{position: 'relative'}}
-          key={"span" + i}>
-          <div style={cDiv} key={"span" + i} className={colorClass}>
-          </div>
-            <img src={carabiner} alt="carabiner-icon" key={i}/>
-            {/* Below is to appear over the percentage div above*/}
-            <img src={carabiner} alt="carabiner-icon" key={'unfilled' + i} className="unfilled-absolute"/>
-        </span>
-      )
-    }
-    else {
-      carabiners.push(
-        <img src={carabiner} alt="carabiner-icon" key={i} className="unfilled"/>
-      )
-    }
-  }
   return (
     <div className="ratings-holster">
-      <div className="carabiners">{carabiners}</div>
+      <GetCarabinerRating calculatedRating={calculatedRating} color={color} />
       <div>Rating: {calculatedRating}</div>
     </div>
- )
+  )
 }
 
 export default Ratings

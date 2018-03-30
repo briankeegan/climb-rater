@@ -4,14 +4,15 @@ import Ratings from './Ratings'
 const WallRoute = ({ climbingRoute }) => {
   const { color, gymGrade, routeSetter, routeType, createdAt, ratings } = climbingRoute
   const date = new Date(createdAt).toDateString()
-  {/* Uses Materialize class to create background color for each WallRoute based on the actual colors, or grey */}
+  // Uses Materialize class to create background color for each WallRoute based on the actual colors, or grey
   let colorLowerCase = color ? color.toLowerCase() : 'grey'
-  {/* If the color is black, make it dark grey, because black on black can not be read */}
+  // If the color is black, make it dark grey, because black on black can not be read
   colorLowerCase = (colorLowerCase !== 'black') ?  colorLowerCase : 'grey darken-1'
+  colorLowerCase += ' lighten-4'
 
   return(
     <div className="col s12 wall-route">
-      <div className={`card-panel ${colorLowerCase} lighten-4 z-depth-1`}>
+      <div className={`card-panel ${colorLowerCase} z-depth-1`}>
         <div className="row valign-wrapper">
           <div className="col s6">
             <p>{color.toUpperCase()}: {gymGrade}</p>
