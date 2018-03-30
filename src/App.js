@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Route, Link, Switch } from 'react-router-dom'
 import './App.css'
 import Nav from './nav-auth/Nav'
-import Spinner from './Spinner'
+import Spinner from './miscellaneous/Spinner'
 import Sections from './section/Sections'
 import Walls from './wall/Walls'
 import ClimbingRoute from './climbing-route/ClimbingRoute'
@@ -46,6 +46,8 @@ class App extends Component {
           sections: myJson.sections
         })
       })
+      // should never get here, but if it does, should console.error
+      // eslint-disable-next-line
       .catch(error => console.error('Error:', error))
   }
 

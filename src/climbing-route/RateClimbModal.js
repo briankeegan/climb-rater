@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Modal, Button, Input} from 'react-materialize'
-import setErrorMessageState from '../SetErrorMessageState'
+import setErrorMessageState from '../miscellaneous/SetErrorMessageState'
 import RateWithCarabiners from '../rating/RateWithCarabiners'
 
 class RateClimbModal extends Component {

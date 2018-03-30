@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Modal, Button} from 'react-materialize'
-import setErrorMessageState from '../SetErrorMessageState'
+import setErrorMessageState from '../miscellaneous/SetErrorMessageState'
 
 
 class LogInModal extends Component {

@@ -1,5 +1,5 @@
 import React from 'react'
-import DivLink from '../DivLink'
+import DivLink from '../miscellaneous/DivLink'
 import GetWallStats from './GetWallStats'
 
 const toUrl = (string) => (
