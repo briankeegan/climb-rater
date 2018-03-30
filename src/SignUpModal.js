@@ -8,7 +8,10 @@ class SignUpModal extends Component {
     super()
     this.state = {
       errorMessage: '',
-      successMessage: ''
+      successMessage: '',
+      user_name: '',
+      password: '',
+      password_retype: ''
     }
     this.onSubmit = this.onSubmit.bind(this)
     this.setErrorMessageState = setErrorMessageState.bind(this)
@@ -17,9 +20,7 @@ class SignUpModal extends Component {
 
   onSubmit (e) {
     e.preventDefault()
-    const user_name = document.getElementById('sign_up_user_name').value
-    const password = document.getElementById('sign_up_password').value
-    const password_retype = document.getElementById('sign_up_password_retype').value
+    const { user_name, password, password_retype } = this.state
 
     // Assuring that form is filled out!
     if ([user_name, password, password_retype].some(cur => cur === '')) {
@@ -50,6 +51,11 @@ class SignUpModal extends Component {
           m.click()
         )
         document.querySelector('#log_in_form').reset()
+        this.setState({
+          user_name: '',
+          password: '',
+          password_retype: ''
+        })
         return myJson
       })
       .then(this.props.setUserState)
@@ -57,6 +63,7 @@ class SignUpModal extends Component {
   }
 
   render() {
+    const { user_name, password, password_retype } = this.state
     return (
       <Modal
         header='Sign Up'
@@ -66,19 +73,19 @@ class SignUpModal extends Component {
 
             <div className="row">
               <div className="input-field col m8 offset-m2">
-                <input id="sign_up_user_name" type="text" className="validate" required="true" />
+                <input id="sign_up_user_name" type="text" className="validate" required="true" value={user_name} onChange={(e) => this.setState({ user_name: e.target.value })} />
                 <label htmlFor="sign_up_user_name">User Name</label>
               </div>
             </div>
             <div className="row">
               <div className="input-field col m8 offset-m2">
-                <input id="sign_up_password" type="password" className="validate" required="true" />
+                <input id="sign_up_password" type="password" className="validate" required="true" value={password} onChange={(e) => this.setState({ password: e.target.value })}/>
                 <label htmlFor="sign_up_password">Password</label>
               </div>
             </div>
             <div className="row">
               <div className="input-field col m8 offset-m2">
-                <input id="sign_up_password_retype" type="password" className="validate" required="true"/>
+                <input id="sign_up_password_retype" type="password" className="validate" required="true" value={password_retype} onChange={(e) => this.setState({ password_retype: e.target.value })}/>
                 <label htmlFor="sign_up_password_retype">Retype Password</label>
               </div>
             </div>

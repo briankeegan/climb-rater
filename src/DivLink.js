@@ -3,7 +3,10 @@ import PropTypes from "prop-types";
 import invariant from "invariant";
 import { createLocation } from "history";
 
-// Same as Link except uses a div.  Specific for my project
+// Same as Link except uses a Div.  Specific for my project
+// This was neccessary to use HTML correctly (don't want to surround a div with an anchor tag)
+// I updated this code, but did not write it.
+
 
 const isModifiedEvent = event =>
   !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);

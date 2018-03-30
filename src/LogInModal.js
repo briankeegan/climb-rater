@@ -45,6 +45,10 @@ class LogInModal extends Component {
           m.click()
         )
         document.querySelector('#log_in_form').reset()
+        this.setState({
+          user_name: '',
+          password: '',
+        })
         return myJson
       })
       .then(this.props.setUserState)

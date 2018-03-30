@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const Spinner = () => (
   <div className="preloader-wrapper big active">
@@ -44,4 +44,4 @@ const Spinner = () => (
   </div>
 )
 
-export default Spinner;
+export default Spinner
