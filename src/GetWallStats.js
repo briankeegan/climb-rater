@@ -1,33 +1,35 @@
-import React from 'react';
+import React from 'react'
 
-const noDuplicates = (noDups, item) => {
-    if (item === (null || undefined)) return noDups
-  if(noDups.indexOf(item) === -1)
-    noDups.push(item)
-    return noDups
+const noDuplicates = (noDupes, item) => {
+  // item is empty, return the empty array
+  if (item === (null || undefined)) return noDupes
+  // f the item is not already in the array push it
+  if(noDupes.indexOf(item) === -1)
+    noDupes.push(item)
+  return noDupes
 }
 
 const GetWallStats = ({walls}) => {
-    const stats = {
-      gymGrades: [],
-      routeSetters: [],
-      routeTypes: [],
-      wallNumbers: []
-    }
-    walls.forEach(wall => {
-      noDuplicates(stats.wallNumbers, wall.number)
-      // noDuplicates(stats.wallNumbers, wall)
-      wall.climbingRoutes &&
+  const stats = {
+    wallNumbers: [],
+    gymGrades: [],
+    routeSetters: [],
+    routeTypes: []
+  }
+  walls.forEach(wall => {
+    noDuplicates(stats.wallNumbers, wall.number)
+    wall.climbingRoutes &&
       wall.climbingRoutes.forEach(cr => {
-        noDuplicates(stats.gymGrades, cr.gymGrade)
-        noDuplicates(stats.routeSetters, cr.routeSetter)
-        noDuplicates(stats.routeTypes, cr.routeType)
+        const { gymGrade, routeSetter, routeType} = cr
+        noDuplicates(stats.gymGrades, gymGrade)
+        noDuplicates(stats.routeSetters, routeSetter)
+        noDuplicates(stats.routeTypes, routeType)
       })
-    })
+  })
   return (
     <div className="row">
       <div className="col s6">
-      <p>Walls: {stats.wallNumbers.join(', ')}</p>
+        <p>Walls: {stats.wallNumbers.join(', ')}</p>
         <p>{stats.routeTypes.join(', ')}</p>
       </div>
       <div className="col s6">
@@ -38,4 +40,4 @@ const GetWallStats = ({walls}) => {
   )
 }
 
-export default GetWallStats;
+export default GetWallStats
