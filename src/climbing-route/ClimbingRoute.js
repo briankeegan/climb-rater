@@ -1,5 +1,5 @@
 import React from 'react'
-import Ratings from './Ratings'
+import Ratings from '../Ratings'
 import RateClimbModal from './RateClimbModal'
 
 // creating Materialize badges based off of number of climberGrades.  Badges will show accordingly.

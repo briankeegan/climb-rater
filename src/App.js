@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Route, Link, Switch } from 'react-router-dom'
 import './App.css'
-import Nav from './Nav'
+import Nav from './nav-auth/Nav'
 import Spinner from './Spinner'
-import Sections from './Sections'
-import Walls from './Walls'
-import ClimbingRoute from './ClimbingRoute'
+import Sections from './section/Sections'
+import Walls from './wall/Walls'
+import ClimbingRoute from './climbing-route/ClimbingRoute'
 
 const toUrl = (string) => (
   string.split(' ').join('').toLowerCase()

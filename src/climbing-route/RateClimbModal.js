@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import './App.css'
 import {Modal, Button, Input} from 'react-materialize'
-import setErrorMessageState from './SetErrorMessageState'
+import setErrorMessageState from '../SetErrorMessageState'
 import RateWithCarabiners from './RateWithCarabiners'
 
 class RateClimbModal extends Component {
@@ -52,7 +51,7 @@ class RateClimbModal extends Component {
 
   onSubmit (e) {
     e.preventDefault()
-    
+
     const carabiners = document.getElementsByName('carabiners')
     let rating = 0
     for (let i = 0; i < carabiners.length; i++) {

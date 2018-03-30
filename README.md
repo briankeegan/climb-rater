@@ -1,6 +1,6 @@
 # Climb Rater
 ### Built with React
-![ClimbRater App mobile](https://s3.amazonaws.com/wibbed/Screenshot+from+2018-03-09+01-12-15.png)
+![ClimbRater App mobile](https://s3.amazonaws.com/wibbed/climbing/screenshotfromapp.png)
 
 What are you waiting for? Check out the deployed [site](https://briankeegan.github.io/climb-rater/)
 
@@ -18,8 +18,15 @@ Check it out!
 
 [Repo](https://github.com/briankeegan/climb-rater-api)
 
-[Heroku API](https://climb-rater-api-development.herokuapp.com/)
+[Heroku API](https://climb-rater-api.herokuapp.com/)
 
+
+### How to Contribute
+-  Fork and clone
+-  npm install
+-  Checkout to refactor branch (just make sure the api is poinging to https://climb-rater-api-development.herokuapp.com/ while working on local host)
+-  I'll review your contributions or suggestions
+-  Thanks!
 
 ### Technologies
 - React.js

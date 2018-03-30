@@ -1,5 +1,5 @@
 import React from 'react'
-import DivLink from './DivLink'
+import DivLink from '../DivLink'
 import WallRoute from './WallRoute'
 
 const toUrl = (string) => (
