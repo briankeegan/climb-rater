@@ -39,7 +39,7 @@ class App extends Component {
   // Gathers data from api needed to display content
   // Sets state of section so updates happen universally.
   getSection() {
-    return fetch('https://climb-rater-api-development.herokuapp.com')
+    return fetch('https://climb-rater-api.herokuapp.com')
       .then(res => res.json())
       .then(myJson =>  {
         this.setState({

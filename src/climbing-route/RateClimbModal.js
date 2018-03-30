@@ -18,7 +18,7 @@ class RateClimbModal extends Component {
   onDelete () {
     const user = this.props.store.user
     const saveRating = this.props.saveRating
-    fetch(`https://climb-rater-api-development.herokuapp.com/ratings/${saveRating._id}`, {
+    fetch(`https://climb-rater-api.herokuapp.com/ratings/${saveRating._id}`, {
       headers: new Headers({
         'Content-Type': 'application/json',
         'Authorization': `Token token=${user.token}`
@@ -75,7 +75,7 @@ class RateClimbModal extends Component {
     }
 
     // send http reqeust
-    fetch(`https://climb-rater-api-development.herokuapp.com/ratings${urlExt}`, {
+    fetch(`https://climb-rater-api.herokuapp.com/ratings${urlExt}`, {
       headers: new Headers({
         'Content-Type': 'application/json',
         'Authorization': `Token token=${user.token}`

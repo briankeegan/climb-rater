@@ -24,7 +24,7 @@ Check it out!
 ### How to Contribute
 -  Fork and clone
 -  npm install
--  Checkout to refactor branch (just make sure the api is poinging to https://climb-rater-api-development.herokuapp.com/ while working on local host)
+-  Checkout to refactor branch (just make sure the api is pointing to https://climb-rater-api-development.herokuapp.com/ while working on local host:3000)
 -  I'll review your contributions or suggestions
 -  Thanks!
 
