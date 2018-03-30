@@ -38,19 +38,19 @@ Check it out!
 - Node.js
 
 ### Unsolved
-- I want to add carabiner rating system, like with stars
-- I want to auto-populate form on update rating
-- Refactor, refactor, refactor. (Separate components into different files)
+I would like to have a user page, climbers can see all the climbs they've ranked
+Add a profile for users
+Allow private comments on climbs
 
 ### Planning and Process
-This is my first React.js app.
+This is my first big React.js app.
 As I built components, I would start by hard-coding everything, and adding in props/states bit by bit to make sure nothing broke.
 I’m very impressed by the debugging of react in general as it gives you very detailed notifications of what went wrong
 
 
 ### Challenges
 I found fetch to be pretty straight forward, but including npms like Materialize.css and React Materialize ended up taking more work than expected and a few reinstalls.
-Additionally, I initially left most components in the App.js file, which ended up being cumbersome.  In future iterations I will seperate that code better
+Additionally, I initially left most components in the App.js file, which ended up being cumbersome. 
 
 ###  User Stories
 As a climber I want to easily navigate to routes I’ve climbed, or want to climb
