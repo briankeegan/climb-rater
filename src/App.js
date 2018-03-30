@@ -126,7 +126,7 @@ class App extends Component {
                 )
               }}
             />
-            // Default for unknown route
+            {/* Default for unknown route */}
             <Route path="*" component={NotFound} />
           </Switch>
         </div>
